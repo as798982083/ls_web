@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--联系我们测试页面-->
+    <form th:action="@{/contectUsShow}" method="POST">
+        <label for="companyName">机构名称:</label>
+        <input type="text" name="companyName" size="50"></input><br/>
+        <label for="companyAddress">机构地址:</label>
+        <input type="text" name="companyAddress" size="50"></input><br/>
+        <label for="companyPhone">机构电话:</label>
+        <input type="text" name="companyPhone" size="50"></input><br/>
+        <label for="peoplePhone">负责人电话:</label>
+        <input type="text" name="peoplePhone" size="50"></input><br/>
+        <input type="submit"></input>
+    </form>
+</body>
+</html>

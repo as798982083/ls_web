@@ -1,14 +1,19 @@
 package com.zcj.ls.ls_web.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import sun.rmi.runtime.Log;
+
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 联系我们页面
  * 标题：联系我们(固定不变)
  * 副标题：
- *  发布人：南京恒宇社会工作服务中心
- *  发布日期：最后修改日期
- *  浏览次数：200
+ *  发布人：南京恒宇社会工作服务中心（暂时不变）
+ *  发布日期：最后修改日期（自动更新）
+ *  浏览次数：200（自动更新）
  * 正文：
  *  机构名称：南京恒宇社会工作服务中心
  *  地址：南京市溧水区财贸北村10号溧水老年大学2楼
@@ -22,14 +27,18 @@ public class ContectUs {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @CreatedDate
+    private Long createTime;
+
+    @LastModifiedDate
+    private Long updateTime;
+
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String author;
 
-    @Column(nullable = false)
-    private String updateTime;
 
     private String readNum;
 
@@ -49,6 +58,22 @@ public class ContectUs {
         this.id = id;
     }
 
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -63,14 +88,6 @@ public class ContectUs {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getReadNum() {

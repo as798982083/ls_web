@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -83,10 +84,10 @@
             <div class="ctn">
                 <!--正文-->
                 <div class="ctn_m">
-                	<p>机构名称：南京恒宇社会工作服务中心</p>
-                	<p>机构地址：南京市溧水区财贸北村10号溧水老年大学2楼</p>
-                	<p>机构电话：025-56601234</p>
-                	<p>联系人电话：18061278111</p>
+                    <p>机构名称：<span th:text="${contectUs.companyName}"></span></p>
+                	<p>机构地址：<span th:text="${contectUs.companyAddress}"></span></p>
+                	<p>机构电话：<span th:text="${contectUs.companyPhone}"></span></p>
+                	<p>联系人电话：<span th:text="${contectUs.peoplePhone}"></span></p>
                     <br/>
                     <div style="text-align:center"><img src="front/upload/pic6.jpg" width="540" height="295" alt=""/></div>
                 </div>
