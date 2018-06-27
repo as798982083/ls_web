@@ -26,8 +26,8 @@ public class ContectUsController {
 
     //前台显示
     @RequestMapping("/contectUs")
-    public String contectUs(ContectUs contectUs, Model model) {
-        contectUs = contectUsRepository.findByTitle("联系我们");
+    public String contectUs(Model model) {
+        ContectUs contectUs = getContectUs();
         model.addAttribute("contectUs",contectUs);
         model.addAttribute("msg",resultMessage);
         return "front/contectUs";
@@ -35,8 +35,8 @@ public class ContectUsController {
 
     //后台显示
     @RequestMapping(value = "/contectUsShow")
-    public String contectUsShow(ContectUs contectUs, Model model) {
-        contectUs = contectUsRepository.findByTitle("联系我们");
+    public String contectUsShow(Model model) {
+        ContectUs contectUs = getContectUs();
         model.addAttribute("contectUs",contectUs);
         model.addAttribute("msg",resultMessage);
         return "back/contectUs";
@@ -60,5 +60,19 @@ public class ContectUsController {
                     "联系我们");
         }
         return "redirect:/contectUsShow";
+    }
+
+    /**
+     * 从数据库中查找“联系我们”内容
+     * 不做非空判断
+     * @return 类对象
+     */
+    public ContectUs getContectUs(){
+        ContectUs contectUs = new ContectUs();
+        contectUs = contectUsRepository.findByTitle("联系我们");
+        if (contectUs == null) {
+            contectUs = new ContectUs();
+        }
+        return contectUs;
     }
 }
