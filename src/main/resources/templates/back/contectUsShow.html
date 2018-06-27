@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+   <link href="back/css/icheck_skins/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="back/css/bootstrap-fileupload.css" />
+	<link rel="stylesheet" href="back/css/tabs.css" />
+	<link rel="stylesheet" href="back/css/layout.css" />
+	<link rel="stylesheet" href="back/css/bootstrap.css" />
+	<link rel="stylesheet" href="back/css/table.css"  />
+	<link rel="stylesheet" href="back/css/font-awesome.css" />
+	<link rel="stylesheet" href="back/css/my.css" />
+    <style>
+        .item_content ul {
+            list-style: none;
+        }
+
+		.item_content ul li {
+			width: 370px;
+			height: 430px;
+			float: left;
+			margin-right: 30px;
+		}
+    </style>
+	<body>
+		<ul class="tabs" style="background-color: #faf3f3">
+			<li>
+				<a href="back/javascript:void(0)" id="#tab2">联系我们</a>
+			</li>
+		</ul>
+		<div class="tabs_content" style="">
+			<div id="tab2" style="display: block; ">
+				<div class="item_container" style="">
+					<div class="item_content" style="overflow: auto; padding: 0px;">
+						<form th:action="@{/contectUsEdit}" method="post">
+							<fieldset style="">
+								<legend></legend>
+								<div class="control-group">
+									<!-- Text input-->
+									<label class="control-label" for="companyName">机构名称</label>
+									<div class="controls">
+										<input class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" id="companyName" name="companyName" placeholder="机构名称" type="text" th:value="${contectUs.companyName}" autocomplete="Off">
+										<span class="field-validation-valid" data-valmsg-for="ArticleName" data-valmsg-replace="true"></span>
+									</div>
+								</div>
+								<div class="control-group">
+									<!-- Text input-->
+									<label class="control-label" for="companyAddress">机构地址</label>
+									<div class="controls">
+										<input class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" id="companyAddress" name="companyAddress" placeholder="机构地址" type="text" th:value="${contectUs.companyAddress}" autocomplete="Off">
+										<span class="field-validation-valid" data-valmsg-for="ArticleName" data-valmsg-replace="true"></span>
+
+									</div>
+								</div>
+								<div class="control-group">
+									<!-- Text input-->
+									<label class="control-label" for="companyPhone">机构电话</label>
+									<div class="controls">
+										<input class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" id="companyPhone" name="companyPhone" placeholder="机构电话" type="text" th:value="${contectUs.companyPhone}" autocomplete="Off">
+										<span class="field-validation-valid" data-valmsg-for="ArticleName" data-valmsg-replace="true"></span>
+
+									</div>
+								</div>
+								<div class="control-group">
+									<!-- Text input-->
+									<label class="control-label" for="peoplePhone">负责人电话</label>
+									<div class="controls">
+										<input class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" id="peoplePhone" name="peoplePhone" placeholder="负责人电话" type="text" th:value="${contectUs.peoplePhone}" autocomplete="Off">
+										<span class="field-validation-valid" data-valmsg-for="ArticleName" data-valmsg-replace="true"></span>
+
+									</div>
+								</div>
+								<div class="control-group" id="machine" style="margin-top: 30px; margin-bottom: 20px; width: 800px; display: none; overflow: auto; margin-left: 30px;">
+									<div style="float: left; width: 180px; margin-bottom: 18px; overflow: auto;">
+										<div style="float: left; margin-right: 5px;">
+											<div class="icheckbox_flat-blue checked" style="position: relative;"><input type="checkbox" checked="checked" class="chk1" value="1" name="machineId" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+										</div>
+										<label></label>
+									</div>
+								</div>
+								<div style="clear: both; margin-top: 30px;">
+									<input type="submit" value="提交" class="btn btn-primary">
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript" src="back/js/jquery-1.8.3.min.js"></script>
+	<script src="back/js/bootstrap/bootstrap-fileupload.js"></script>
+<script type="text/javascript" charset="utf-8" src="back/js/kindeditor.js"></script>
+<script type="text/javascript">
+KE.show({
+	id : 'content',
+	resizeMode : 1,
+	cssPath : './index.css',
+	items : [
+	'fontname', 'fontsize', 'textcolor', 'bgcolor', 'bold', 'italic', 'underline',
+	'removeformat', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+	'insertunorderedlist', 'emoticons', 'image', 'link']
+});
+</script>
+	<script>
+		$(function() {
+			/*菜单设置*/
+			/*选项卡设置*/
+			$('.tabs a').click(function(e) {
+				e.preventDefault();
+				if($(this).closest("li").attr("class") == "current") {
+					return;
+				} else {
+					$(".tabs_content").find("[id^='tab']").hide();
+					$(".tabs li").attr("class", "");
+					$(this).parent().attr("class", "current");
+					$($(this).attr('id')).fadeIn();
+					if(tabSelect) {
+						tabSelect($(this));
+					}
+				}
+			});
+
+		})
+	</script>
+	</div>
+	</body>
+
+</html>

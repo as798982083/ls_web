@@ -39,7 +39,7 @@ public class ContectUsController {
         ContectUs contectUs = getContectUs();
         model.addAttribute("contectUs",contectUs);
         model.addAttribute("msg",resultMessage);
-        return "back/contectUs";
+        return "back/contectUsShow";
     }
 
     //编辑内容

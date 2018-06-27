@@ -20,8 +20,8 @@
  
  ## 命名规则
  
- **文件名**：全部小写，中间使用下划线"_"分割。eg：`news_show.html`  
+ **文件名**：驼峰命名法。eg：`newsShow.html`  
  **类名**：每个单词首字母大写。eg：`NewsController`
- **方法名**： 驼峰命名法。eg： `public void newsDetail(){}`
- **路由命名**：与路由对应的页面同名。eg：新闻列表页面`news.html`，则跳转到新闻列表的路由为`@RequestMapping("/news")`
+ **方法名**： 驼峰命名法。eg： `public void newsShow(){}`
+ **路由命名**：驼峰命名法。eg：新闻列表页面`newsShow.html`，则跳转到新闻列表的路由为`@RequestMapping("/newsShow")`
  

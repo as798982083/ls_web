@@ -24,17 +24,16 @@ public class NewsController {
     }
 
     //新闻列表  后台显示
-    @RequestMapping("/news_show")
+    @RequestMapping("/newsShow")
     public String newsShow(){
-
-        return "news_show";
+        return "back/newsShow";
     }
 
     //新闻详情  后台编辑
     @RequestMapping("/news_edit")
     public String newsEdit(){
 
-        return "back/news_edit";
+        return "newsEdit";
     }
 
 
