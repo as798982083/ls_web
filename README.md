@@ -21,7 +21,7 @@
  ## 命名规则
  
  **文件名**：驼峰命名法。eg：`newsShow.html`  
- **类名**：每个单词首字母大写。eg：`NewsController`
- **方法名**： 驼峰命名法。eg： `public void newsShow(){}`
+ **类名**：每个单词首字母大写。eg：`NewsController`  
+ **方法名**： 驼峰命名法。eg： `public void newsShow(){}`  
  **路由命名**：驼峰命名法。eg：新闻列表页面`newsShow.html`，则跳转到新闻列表的路由为`@RequestMapping("/newsShow")`
  

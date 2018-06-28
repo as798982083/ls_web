@@ -39,7 +39,7 @@ public class ContectUs {
     @Column(nullable = false)
     private String author;
 
-
+    //阅读次数
     private String readNum;
 
     private String companyName;

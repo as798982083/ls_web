@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ContectUsController {
 
     private ContectUsRepository contectUsRepository;
+    //存储查询结果说明：成功或者失败的原因
     private String resultMessage = "";
 
     @Autowired
