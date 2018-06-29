@@ -2,11 +2,13 @@ package com.zcj.ls.ls_web.controller;
 
 import com.zcj.ls.ls_web.dao.NewsRepository;
 import com.zcj.ls.ls_web.entity.News;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +18,14 @@ import java.util.Optional;
 @Controller
 public class NewsController {
 
-
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
     //存储查询结果说明：成功或者失败的原因
     private String resultMessage = "";
+
+    @Autowired
+    public NewsController(NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
+    }
 
     //新闻列表  前台显示
     @RequestMapping("/news")
@@ -41,27 +47,31 @@ public class NewsController {
     }
 
     //新闻列表  后台显示
-    @RequestMapping("/newsShow")
+    @RequestMapping("/newsList")
     public String newsShow(Model model){
         List<News> newsList = newsRepository.findAll();
         if (newsList == null) {
             resultMessage = "文章列表为空";
+            newsList = new ArrayList<News>();
         }
         model.addAttribute("newsList", newsList);
         model.addAttribute("msg", resultMessage);
-        return "back/newsShow";
+        return "back/newsList";
     }
 
-    //新闻详情  后台显示
+    //编辑新闻  后台显示
     @RequestMapping("/newsEdit")
     public String newsEdit(Model model, String id){
+        if (id == null) {
+            return "back/newsEdit";
+        }
         Optional<News> news = newsRepository.findById(Long.parseLong(id));
         if (news == null) {
             resultMessage = "获取文章详情失败";
         }
         model.addAttribute("news", news);
         model.addAttribute("msg", resultMessage);
-        return "newsEdit";
+        return "back/newsEdit";
     }
 
     //保存

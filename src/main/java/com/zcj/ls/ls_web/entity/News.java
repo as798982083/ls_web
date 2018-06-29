@@ -32,6 +32,9 @@ public class News {
     //浏览次数
     private int readNum;
 
+    //文章图片
+    private String image;
+
     //正文
     private String content;
 
