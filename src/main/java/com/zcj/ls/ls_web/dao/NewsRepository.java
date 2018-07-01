@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-    //查找文章列表
-    @Override
-    List<News> findAll();
 
     //根据Id查找文章
     @Query("select u from News u where u.id = :id")
@@ -28,6 +25,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Query(value = "update News set title=?1,author=?2,content=?3  where id=?4 ")
     int updateNews(String title, String author, String content, Long id);
 
-    //新增文章使用默认的save方法，不需要重写。
-
+    //新增文章使用默认方法：save()
+    //删除文章使用默认方法：deleteById()
+    //查找文章列表使用默认方法：findAll()
 }

@@ -3,10 +3,7 @@ package com.zcj.ls.ls_web.entity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class News {
@@ -33,9 +30,11 @@ public class News {
     private int readNum;
 
     //文章图片
-    private String image;
+    private String imageUrl;
 
     //正文
+    @Lob
+    @Column(columnDefinition="LONGTEXT")
     private String content;
 
     public Long getId() {
@@ -92,5 +91,13 @@ public class News {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

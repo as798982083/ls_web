@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"><!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"><head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -29,10 +28,11 @@
                 <li><a href="about">关于我们</a></li>
                 <li class="now"><a href="news">新闻中心</a></li>
                 <li class="er"><a href="service">核心业务</a></li>
-                <li><a href="join">合作伙伴</a></li>
-                <li><a href="customer">客户中心</a></li>
+                <li><a href="join.html">合作伙伴</a></li>
+                <li><a href="customer.html">客户中心</a></li>
                 <li><a href="attrct">招商中心</a></li>
                 <li><a href="invite">加入我们</a></li>
+                <li><a href="contectUs">联系我们</a></li>
             </ul>
             <div class="er_m">
                 <div class="hx">
@@ -60,78 +60,74 @@
 <!--头部-->
 <div class="space_hx">&nbsp;</div>
 <div class="scd clearfix">
-    <div class="news clearfix">
-    	<div class="news_l">
-        	<div class="scd_top">
-                <span>头条新闻</span>
-                <div class="pst">
-                    当前位置：<a href="">首页</a>-<a href="">新闻中心</a>
-                </div>
-            </div>
-            <div class="new_m">
-            	<div class="box mainPhoto"> <span class="goleft nextPage"><a href="javascript:void(0)"><img src="front/images/prev.png"/></a></span>
-                  <div class="go slidegrid">
-                    <ul class="slideitems">
-                      <li>
-                      	<div class="tu"><a href="news_d"><img src="front/upload/pic7.jpg" alt=""/></a></div>
-                        <div class="n_m">
-                            <div class="title">
-                                <span>2015-1-11</span>
-                                <p class="name"><a href="news_d">头条新闻长安乌沙大酒店开始啦</a></p>
-                            </div>
-                            <div class="des">
-                                头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安店开始...
-                            </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <span class="goright prevPage"><a href="javascript:void(0)"><img src="front/images/next.png" /></a></span> </div>
-                <script>
-                    $(function(){
-                        $('.mainPhoto .slidegrid').scrollable({size:1,circular:true,next:'.nextPage',prev:'.prevPage'}).autoscroll();
-                    });
-                </script> 
-            	<div class="n_m" style="display: none">
-                    <div class="title">
-                        <span>2015-1-11</span>
-                        <p class="name"><a href="news_d">头条新闻长安乌沙大酒店开始啦</a></p>
-                    </div>
-                    <div class="des">
-                        头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="news_r">
-        	<div class="scd_top">
-                <span>全部新闻</span>
-            </div>
-            <div th:each="news,newsState:${newsList}" class="new_m">
-                <div class="n_m">
-                    <div class="title">
-                        <span th:text="${news.createTime}"></span>
-                        <p class="name"><a th:text="${news.title}" th:name="${news.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>
-                    </div>
-                    <div th:text="${news.content}" class="des" >
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript">
-                function newsDetail(obj) {
-                    debugger
-                    var url = "newsDetail?id="+obj.name
-                    window.location.href= url ;
-                }
-            </script>
+	<div class="scd_top">
+    	<span>新闻详情</span>
+        <div class="pst">
+        	当前位置：<a href="">首页</a>-<a href="">新闻中心</a>
         </div>
     </div>
-    <div class="space_hx">&nbsp;</div>
-    <div class="pages">
-    	<a href="">首页</a>
-        <a href="">上一页</a>
-        <a href="">下一页</a>
-        <a href="">尾页</a>
+    <div class="scd_m clearfix">
+    	<div class="scd_ml">
+        	<h1 th:text="${news.title}"></h1>
+            <div class="time">
+            	<span th:text="${news.createTime}"></span>
+                <span >来源：</span><span th:text="${news.author}"></span>
+                <span>浏览次数  </span><span th:text="${news.readNum}"></span>
+                <div class="font">
+                	<span>字体大小：</span>
+                    <em class="on f_14">14px</em>
+                    <em class="f_16">16px</em>
+                    <em class="f_18">18px</em>
+                </div>
+            </div>
+            <div class="ctn">
+            	<!--<div class="des">-->
+                	<!--<p>[摘要] 10月29日，在第十五屆中國國際社會公共安全博覽會上，卓越集團與深圳光啓智能光子開展深度戰略合作，這是10月16日卓越E+商務2.0正式發布後，又一夢想合夥人正式攜手卓越集團，締造智能硬件在商務辦公空間安防領域的完美應用案例。卓越集團聯席執行總裁王衛鋒出席了簽約儀式。</p>-->
+                <!--</div>-->
+                <div th:utext="${news.content}" class="ctn_m">
+                </div>
+            </div>
+        </div>
+        <div class="scd_mr">
+        	<div class="box_h">
+            	<span>热销项目</span>
+                <a href="">更多</a>
+            </div>
+            <div class="box_m"><img src="front/upload/pic4.jpg" alt=""/></div>
+            <div class="space_hx">&nbsp;</div>
+            <div class="box_h">
+            	<span>宣传视频</span>
+                <a href="">更多</a>
+            </div>
+            <div class="box_m">
+            	<div class="videoRow-box">
+                    <div class="rel">
+                        <a href="javascript:;" class="videoImg">
+                            <img src="front/upload/pic5.jpg" alt=""/>
+                            <span class="play-btn"><img src="front/images/icon7.png"></span>
+                        </a>
+                        <video class="video videoPlay" controls>
+                            <source src="front/images/movie.ogg">
+                        </video>
+                        <!--<embed class="video videoPlay" id="player" src="http://player.youku.com/player.php/Type/Folder/Fid/26148725/Ob/1/sid/XMTM2MDQ4NzY3Mg==/v.swf" quality="high" align="middle"></embed>-->
+                    </div>
+                </div>
+            </div>
+            <div class="space_hx">&nbsp;</div>
+            <div class="box_h">
+            	<span>热点新闻</span>
+                <a href="">更多</a>
+            </div>
+            <div class="box_m">
+            	<ul>
+                	<li><a href="">間安防領域的完美應用案例。卓越...</a></li>
+                    <li><a href="">間安防領域的完美應用案例。卓越...</a></li>
+                    <li><a href="">間安防領域的完美應用案例。卓越...</a></li>
+                    <li><a href="">間安防領域的完美應用案例。卓越...</a></li>
+                    <li><a href="">間安防領域的完美應用案例。卓越...</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <div class="fn_bg">

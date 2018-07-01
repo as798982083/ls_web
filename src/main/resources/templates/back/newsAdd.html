@@ -32,21 +32,21 @@
                 <a href="newsList" id="#tab1" >文章管理</a>
             </li>
             <li class="current">
-                <a href="javascript:void(0)" id="#tab2">编辑文章</a>
+                <a href="javascript:void(0)" id="#tab2">添加文章</a>
             </li>
         </ul>
         <div class="tabs_content" style="">
             <div id="tab2" style="display: block; ">
                 <div class="item_container" style="">
                     <div class="item_content" style="overflow: auto; padding: 0px;">
-                        <form th:action="@{/news}" method="post" enctype="multipart/form-data" novalidate="novalidate" style="">
+                        <form th:action="@{/newsSave}" method="post" enctype="multipart/form-data" novalidate="novalidate" style="">
                             <fieldset style="">
                                 <legend></legend>
                                 <div class="control-group">
                                     <!-- Text input-->
                                     <label class="control-label">文章标题</label>
                                     <div class="controls">
-                                        <input id="title" name="title" th:value="${news.title}" class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" placeholder="文章标题" type="text" value="" autocomplete="Off">
+                                        <input id="title" name="title" class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" placeholder="文章标题" type="text" autocomplete="Off">
                                         <span class="field-validation-valid" data-valmsg-for="title" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="controls">
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img th:src="${news.imageUrl}">
+                                                <img src="back/images/noimg.gif">
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="width: 200px; height: 150px; line-height: 20px;"></div>
                                             <div>
@@ -79,7 +79,7 @@
                                     <!-- Text input-->
                                     <label class="control-label" for="content">文章内容</label>
                                     <div class="controls">
-                                        <textarea id="content" name="content" th:text="${news.content}" cols="20" data-val="true" data-val-required="文章内容" rows="2" style="width:800px;height:300px;"></textarea>
+                                        <textarea id="content" name="content" cols="20" data-val="true" data-val-required="文章内容" rows="2" style="width:800px;height:300px;"></textarea>
                                     </div>
                                 </div>
 

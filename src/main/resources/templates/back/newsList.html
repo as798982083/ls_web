@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -32,7 +32,7 @@
 				<a href="newsList" id="#tab1">文章管理</a>
 			</li>
 			<li>
-				<a href="newsEdit" id="#tab2">添加文章</a>
+				<a href="newsAdd" id="#tab2">添加文章</a>
 			</li>
 		</ul>
 		<div class="tabs_content" style="">
@@ -51,113 +51,23 @@
 					</thead>
 					<!--表格内容-->
 					<tbody>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
-						</tr>
-						<tr>
-							<td>文章标题</td>
-							<td style="display: none;">true</td>
-							<td>
-								首页代码 设计 金...</td>
-							<td>2018-04-11</td>
-							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>
-							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;"><button class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button></td>
+						<tr th:each="news,newsStat:${newsList}">
+							<td th:text="${news.title}"></td>
+							<td th:text="${news.content}"></td>
+							<td th:text="${news.createTime}"></td>
+							<!--<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>-->
+							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;">
+								<form th:action="newsEdit" method="post">
+									<input  type="text" th:value="${news.id}"  name="id" style="display: none">
+									<button type="submit" class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button>
+								</form>
+							</td>
+							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;">
+								<form th:action="@{/newsDelete}" method="post">
+									<input type="text" th:value="${news.id}" name="id" style="display: none">
+									<button  type="submit" class="btn btn-danger"><i class="icon-trash" style="margin-right:3px"></i>删除</button>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>
