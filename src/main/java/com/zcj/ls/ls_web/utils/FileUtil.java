@@ -24,35 +24,22 @@ public class FileUtil {
         //保存时的文件名
         DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar calendar = Calendar.getInstance();
-        String dateName = df.format(calendar.getTime())+file.getOriginalFilename();
-
-        System.out.println(dateName);
-        //保存文件的绝对路径
-        WebApplicationContext webApplicationContext = (WebApplicationContext) SpringUtil.getApplicationContext();
-        ServletContext servletContext = webApplicationContext.getServletContext();
-        String realPath = servletContext.getRealPath("/");
-        String filePath = realPath + File.separator+dateName;
-        System.out.println("绝对路径:"+filePath);
-
-        File newFile = new File(filePath);
+        String fileName = df.format(calendar.getTime())+file.getOriginalFilename();
+        System.out.println("fileName："+fileName);
 
         //MultipartFile的方法直接写文件
         try {
-
-            //上传文件
-            file.transferTo(newFile);
-            //获取项目路径resources
-            String path = ResourceUtils.getURL("resources").getPath();
-            File file1 = new File(path.substring(1, path.length())+"\\"+dateName);
+            //保存文件的绝对路径
+            String path = ResourceUtils.getURL("src\\main\\resources\\static\\upload").getPath();
+            File folder = new File(path.substring(1, path.length()));
+            //创建目录和文件
+            if(!folder.exists()){
+                folder.mkdirs();
+            }
+            File file1 = new File(folder.getPath()+"\\"+fileName);
+            //写到文件中并保存相对路径
             file.transferTo(file1);
-
-
-            //数据库存储的相对路径
-            String projectPath = servletContext.getContextPath();
-            String contextpath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+projectPath;
-            url = contextpath + "/resource/"+dateName;
-            System.out.println("相对路径:"+url);
-            //文件名与文件URL存入数据库表
+            url = "upload/"+fileName;
 
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();

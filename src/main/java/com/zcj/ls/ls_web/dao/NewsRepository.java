@@ -22,8 +22,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update News set title=?1,author=?2,content=?3  where id=?4 ")
-    int updateNews(String title, String author, String content, Long id);
+    @Query(value = "update News set title=?1,author=?2,content=?3,imageUrl=?4  where id=?5 ")
+    int updateNews(String title, String author, String content, String imageUrl, Long id);
 
     //新增文章使用默认方法：save()
     //删除文章使用默认方法：deleteById()

@@ -143,7 +143,7 @@ public class NewsController {
             news.setImageUrl(FileUtil.saveFile(image,request));
         }
         Optional<News> old = newsRepository.findById(news.getId());
-        if (old.get() == null) {
+        if (!old.isPresent()) {
             news.setAuthor("南京恒宇社会工作服务中心");
             news.setCreateTime(System.currentTimeMillis());
             News resNews = newsRepository.save(news);
@@ -153,7 +153,7 @@ public class NewsController {
                 resultMessage = "保存成功";
             }
         }else{
-            int res = newsRepository.updateNews(news.getTitle(), news.getAuthor(), news.getContent(), news.getId());
+            int res = newsRepository.updateNews(news.getTitle(), news.getAuthor(), news.getContent(),news.getImageUrl(), news.getId());
             if (res == 0) {
                 resultMessage = "保存失败";
             } else {

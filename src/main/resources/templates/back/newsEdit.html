@@ -40,6 +40,7 @@
                 <div class="item_container" style="">
                     <div class="item_content" style="overflow: auto; padding: 0px;">
                         <form th:action="@{/newsSave}" method="post" enctype="multipart/form-data" novalidate="novalidate" style="">
+                            <input name="id" th:value="${news.id}" style="display: none">
                             <fieldset style="">
                                 <legend></legend>
                                 <div class="control-group">
