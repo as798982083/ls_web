@@ -1,5 +1,6 @@
 package com.zcj.ls.ls_web.utils;
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +41,11 @@ public class FileUtil {
 
             //上传文件
             file.transferTo(newFile);
+            //获取项目路径resources
+            String path = ResourceUtils.getURL("resources").getPath();
+            File file1 = new File(path.substring(1, path.length())+"\\"+dateName);
+            file.transferTo(file1);
+
 
             //数据库存储的相对路径
             String projectPath = servletContext.getContextPath();
