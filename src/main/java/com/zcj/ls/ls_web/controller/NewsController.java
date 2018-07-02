@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 关于我们页面路由
+ * 新闻中心
  */
 @Controller
 public class NewsController {
@@ -139,7 +139,9 @@ public class NewsController {
      */
     @RequestMapping("/newsSave")
     public String newsSave(@ModelAttribute News news, MultipartFile image, @Autowired HttpServletRequest request) {
-        news.setImageUrl(FileUtil.saveFile(image,request));
+        if (image != null) {
+            news.setImageUrl(FileUtil.saveFile(image,request));
+        }
         news.setAuthor("南京恒宇社会工作服务中心");
         news.setCreateTime(System.currentTimeMillis());
         News resNews = newsRepository.save(news);
