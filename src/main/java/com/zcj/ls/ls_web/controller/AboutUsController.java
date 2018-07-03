@@ -3,15 +3,11 @@ package com.zcj.ls.ls_web.controller;
 import com.zcj.ls.ls_web.config.StringConfig;
 import com.zcj.ls.ls_web.dao.AboutUsRepository;
 import com.zcj.ls.ls_web.entity.AboutUs;
-import com.zcj.ls.ls_web.entity.ContectUs;
-import com.zcj.ls.ls_web.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Optional;
 
@@ -39,9 +35,14 @@ public class AboutUsController {
      */
     @RequestMapping("/aboutUsDetail")
     public String aboutUsDetail(Model model, String type) {
+        if (type == null) {
+            type = StringConfig.profile;
+        }
         Optional<AboutUs> aboutUs = aboutUsRepository.findByType(type);
         if (aboutUs == null) {
             resultMessage = "获取文章详情失败";
+            aboutUs = Optional.of(new AboutUs());
+            aboutUs.get().setType(type);
         }
         model.addAttribute("aboutUs", aboutUs.get());
         model.addAttribute("msg", resultMessage);
@@ -53,35 +54,41 @@ public class AboutUsController {
      * 根据类型查找文章
      * @param model
      * @param type  文章类型
-     * @return  要编辑的对象
+     * @return  profileEdit/planningEdit/
      */
     @RequestMapping(value = "/aboutUsEdit")
     public String aboutUsEdit(Model model, String type) {
+        if (type == null) {
+            type = StringConfig.profile;
+        }
         Optional<AboutUs> aboutUs = aboutUsRepository.findByType(type);
-        if (aboutUs == null) {
+        if (!aboutUs.isPresent()) {
             resultMessage = "获取文章详情失败";
+            aboutUs = Optional.of(new AboutUs());
+            aboutUs.get().setType(type);
         }
         model.addAttribute("aboutUs", aboutUs.get());
         model.addAttribute("msg", resultMessage);
-        return "back/"+type+"Edit";
+        return "back/aboutUsEdit";
     }
 
     /**
-     * 保存文章
+     * 保存文章   后台
      * @param model
      * @param aboutUs 文章内容
      * @return 保存后的文章编辑页面
      */
     @PostMapping(value = "/aboutUsSave")
     public String aboutUsSave(Model model, AboutUs aboutUs) {
+        aboutUs.setAuthor(StringConfig.author);
         Optional<AboutUs> old = aboutUsRepository.findByType(aboutUs.getType());
-        if (old.get() == null) {
+        if (!old.isPresent()) {
             AboutUs res = aboutUsRepository.save(aboutUs);
             if (res == null) {
                 resultMessage = "保存失败";
             }
         }else {
-            int res = aboutUsRepository.updateAboutUs(StringConfig.author,aboutUs.getContent(),aboutUs.getType());
+            int res = aboutUsRepository.updateAboutUs(aboutUs.getAuthor(),aboutUs.getContent(),aboutUs.getType());
             if (res == 0) {
                 resultMessage = "更新失败";
             }

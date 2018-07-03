@@ -25,61 +25,28 @@
                 margin-right: 30px;
             }
     </style>
-
 	<body>
         <ul class="tabs" style="background-color: #faf3f3">
-            <li>
-                <a href="javascript:void(0)" id="#tab1" >公司简介</a>
+            <li class="tab_item page_profile current">
+                <a href="aboutUsEdit?type=profile">公司简介</a>
             </li>
-            <li class="current">
-                <a href="aboutUsEdit?type=planning" id="#tab2">发展规划</a>
+            <li class="tab_item page_planning">
+                <a href="aboutUsEdit?type=planning">发展规划</a>
             </li>
         </ul>
         <div class="tabs_content" style="">
             <div id="tab2" style="display: block; ">
                 <div class="item_container" style="">
                     <div class="item_content" style="overflow: auto; padding: 0px;">
-                        <form th:action="@{/news}" method="post" enctype="multipart/form-data" novalidate="novalidate" style="">
+                        <form th:action="@{/aboutUsSave}" method="post" enctype="multipart/form-data" novalidate="novalidate" style="">
                             <fieldset style="">
                                 <legend></legend>
-                                <div class="control-group">
-                                    <!-- Text input-->
-                                    <label class="control-label">文章标题</label>
-                                    <div class="controls">
-                                        <input id="title" name="title" th:value="${news.title}" class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" placeholder="文章标题" type="text" value="" autocomplete="Off">
-                                        <span class="field-validation-valid" data-valmsg-for="title" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                                <!--文章图片-->
-                                <!--<div class="control-group">-->
-                                    <!--&lt;!&ndash; Text input&ndash;&gt;-->
-                                    <!--<label class="control-label">文章图片</label>-->
-                                    <!--<div class="controls">-->
-                                        <!--<div class="fileupload fileupload-new" data-provides="fileupload">-->
-                                            <!--<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">-->
-                                                <!--<img th:src="${news.imageUrl}">-->
-                                            <!--</div>-->
-                                            <!--<div class="fileupload-preview fileupload-exists thumbnail" style="width: 200px; height: 150px; line-height: 20px;"></div>-->
-                                            <!--<div>-->
-                                                <!--<input type="file" id="image" name="image">-->
-                                                <!--<a href="back/#" style="text-decoration: none;" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-trash"></i>&nbsp;删除</a>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--文章简介-->
-                                <!--<div class="control-group">-->
-                                    <!--&lt;!&ndash; Text input&ndash;&gt;-->
-                                    <!--<label class="control-label" for="input01">文章简介</label>-->
-                                    <!--<div class="controls">-->
-                                        <!--<textarea cols="20" data-val="true" data-val-required="文章简介不能为空" id="ArticleIntroduce" name="ArticleIntroduce" rows="2" style="width:800px;height:300px;"></textarea>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                <input type="hidden" name="type" th:value="${aboutUs.type}">
                                 <div class="control-group">
                                     <!-- Text input-->
                                     <label class="control-label" for="content">文章内容</label>
                                     <div class="controls">
-                                        <textarea id="content" name="content" th:text="${news.content}" cols="20" data-val="true" data-val-required="文章内容" rows="2" style="width:800px;height:300px;"></textarea>
+                                        <textarea id="content" name="content" th:text="${aboutUs.content}" cols="20" data-val="true" data-val-required="文章内容" rows="2" style="width:800px;height:300px;"></textarea>
                                     </div>
                                 </div>
 
@@ -106,13 +73,24 @@
                 KE.show({
                     id : 'content',
                     resizeMode : 1,
-                    cssPath : './index.css',
+                    cssPath : '.back/index.css',
                     items : [
                     'fontname', 'fontsize', 'textcolor', 'bgcolor', 'bold', 'italic', 'underline',
                     'removeformat', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
                     'insertunorderedlist', 'emoticons', 'image', 'link']
                 });
               </script>
+            <script th:inline="javascript">
+                debugger
+                var type = [[${aboutUs.getType()}]];
+                var tabs = document.getElementsByClassName("tab_item");
+                for(i=0,size = tabs.size();i<size;i++) {
+                    tabs[i].classList.remove("current");
+                    if(tabs[i].hasClass("page_"+type)){
+                        tabs[i].classList.add("current");
+                    }
+                }
+            </script>
     </div>
     </body>
 

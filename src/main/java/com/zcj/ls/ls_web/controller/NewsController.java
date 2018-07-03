@@ -1,5 +1,6 @@
 package com.zcj.ls.ls_web.controller;
 
+import com.zcj.ls.ls_web.config.StringConfig;
 import com.zcj.ls.ls_web.dao.NewsRepository;
 import com.zcj.ls.ls_web.entity.News;
 import com.zcj.ls.ls_web.utils.FileUtil;
@@ -142,6 +143,7 @@ public class NewsController {
         if (image != null) {
             news.setImageUrl(FileUtil.saveFile(image,request));
         }
+        news.setAuthor(StringConfig.author);
         Optional<News> old = newsRepository.findById(news.getId());
         if (!old.isPresent()) {
             news.setAuthor("南京恒宇社会工作服务中心");
