@@ -11,16 +11,6 @@
 <link rel="stylesheet" type="text/css" href="front/css/thems.css">
 <link rel="stylesheet" type="text/css" href="front/css/responsive.css">
 </head>
-<script th:inline="javascript">
-    var type = [[${aboutUs.getType()}]];
-    var tabs = document.getElementsByClassName("tab_item");
-    for(i=0,size = tabs.size();i<size;i++) {
-        tabs[i].classList.remove("active");
-        if(tabs[i].hasClass("page_"+type)){
-            tabs[i].classList.add("active");
-        }
-    }
-</script>
 <body>
 <!--头部-->
 <div class="header">
@@ -119,5 +109,14 @@
     </ul>
 </div>
 <div class="bq">Copyright © 1998 - 2015   公司名称服务中心 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></div>
+<script th:inline="javascript">
+    debugger
+    var type = [[${aboutUs.getType()}]];
+    var tabs = document.getElementsByClassName("tab_item");
+    for(i=0,len=tabs.length;i<len;i++) {
+        if($(tabs[i]).hasClass("active")) tabs[i].classList.remove("active");
+        if($(tabs[i]).hasClass("page_"+type)) tabs[i].classList.add("active");
+    }
+</script>
 </body>
 </html>

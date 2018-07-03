@@ -192,9 +192,9 @@ div{-webkit-transition: all .3s ease-in-out 0s;-moz-transition: all .3s ease-in-
 .join .join_a{ width:100%; padding-bottom:30px; border-bottom:1px solid #ddd;}
 .join_a dt{ width:540px; float:left; text-align:left; font-size:14px; color:#333333;}
 .join_a dt .title{ width:100%; padding:20px 0; font-weight:bold;}
-.join_a dd{ width:540px; float:right; text-align:left; padding-top:30px;}
-.join_a dd a{ display:inline-block; *display:inline; zoom:1; width:83px; height:83px; background:#232323; border-radius:100px; -moz-border-radius:100px; -webkit-border-radius:100px; text-align:center; vertical-align:top; margin-bottom:20px;transition: 0.7s;-moz-transition:  0.7s;-webkit-transition:  0.7s;-o-transition:  0.7s; margin-right:10px;}
-.join_a dd a span{ display:inline-block; *display:inline; zoom:1; width:40px; font-size:18px; color:#FFF; vertical-align:top; margin-top:17px;}
+.join_a dd{ width:100%; float:left; text-align:left; padding-top:30px;}
+.join_a dd a{ display:inline-block; *display:inline; zoom:1; width:83px; height:83px; background:#232323; border-radius:100px; -moz-border-radius:100px; -webkit-border-radius:100px; text-align:center; vertical-align:top; margin-bottom:20px;transition: 0.7s;-moz-transition:  0.7s;-webkit-transition:  0.7s;-o-transition:  0.7s; margin-right:20px;}
+.join_a dd a span{ display:inline-block; *display:inline; zoom:1; width:40px; font-size:16px; color:#FFF; vertical-align:top; margin-top:17px;}
 .join_a dd a:hover{ background:#0065B3;}
 .join_b{ width:100%; margin-top:25px;}
 .join_b li{ width:168px; height:113px; border:1px solid #ddd; float:left; margin-right:30px; margin-bottom:30px;}

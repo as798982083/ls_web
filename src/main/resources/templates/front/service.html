@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -27,8 +28,8 @@
                 <li><a href="index.html">首页</a></li>
                 <li><a href="aboutUsDetail.html">关于我们</a></li>
                 <li><a href="news.html">新闻中心</a></li>
-                <li class="er now"><a href="service.html">核心业务</a></li>
-                <li><a href="join.html">合作伙伴</a></li>
+                <li class="er"><a href="companys.html">核心业务</a></li>
+                <li class="now"><a href="service.html">合作伙伴</a></li>
                 <li><a href="customer.html">客户中心</a></li>
                 <li><a href="attrct.html">招商中心</a></li>
                 <li><a href="invite.html">加入我们</a></li>
@@ -63,97 +64,29 @@
 <div class="scd clearfix">
 	<div class="scd_top">
     	<div class="s_nav">
-        	<a href=""><span>孵化器</span></a>
-            <a href="" class="active"><span>创客公寓</span></a>
-            <a href=""><span>商务办公</span></a>
-            <a href=""><span>电子商务</span></a>
-            <a href=""><span>智造联盟</span></a>
-            <a href=""><span>商业街</span></a>
+        	<a href="" class="active"><span>政府机构</span></a>
+            <a href=""><span>研究机构</span></a>
+            <a href=""><span>合作企业</span></a>
+            <a href=""><span>金融机构</span></a>
+            <a href=""><span>合作大学</span></a>
         </div>
         <div class="pst">
-        	当前位置：<a href="">首页</a>-<a href="">核心业务</a>
+        	当前位置：<a href="">首页</a>-<a href="">关于我们</a>
         </div>
     </div>
     <div class="join clearfix">
     	<dl class="join_a clearfix">
-        	<dt>
-            	<div class="title">酒店投资——与国际顶级四季酒店、法国雅高战略合作</div>
-                <div class="des">
-                	<p>公司名称服务中心 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>定位及建设目标：包括区域城市现状及趋势分析、服务中心改造定位、服务中心建设目标</p>
-                    <p>服务中心运营体系：包括服务中心平台架构、服务中心品牌体系两个方面</p>
-                    <p>服务中心服务平台：包括基础硬件升级改造、服务平台落地、项目工作推进规划</p>
-                </div>
-            </dt>
             <dd>
-            	<a href=""><span>项目展示</span></a>
-                <a href=""><span>合作商家</span></a>
-                <a href=""><span>客户服务</span></a>
+            	<a th:each="category,state:${categoryList}" href="">
+                    <span th:text="${category}"></span>
+                </a>
             </dd>
         </dl>
         <div class="space_hx">&nbsp;</div>
-        <ul class="join_d clearfix">
-        	<li>
-            	<a href="">
-                	<div class="tu"><img src="front/upload/pic10.jpg" alt=""/></div>
-                    <div class="wen">
-                    	<div class="title">乌沙大酒店</div>
-                        <div class="des">
-                        	<p>建筑面积：约50000㎡（商业部分）</p>
-                            <p>商业建筑：写字楼群街区商业</p>
-                            <p>建筑层数：2层，地上1层及地下1层</p>
-                            <p>地址：深圳前海桂湾片区</p>
-                            <p>项目进度：全球招商进行中</p>
-                            <p>招商电话：0755-82912388-8369</p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-            	<a href="">
-                	<div class="tu"><img src="front/upload/pic10.jpg" alt=""/></div>
-                    <div class="wen">
-                    	<div class="title">乌沙大酒店</div>
-                        <div class="des">
-                        	<p>建筑面积：约50000㎡（商业部分）</p>
-                            <p>商业建筑：写字楼群街区商业</p>
-                            <p>建筑层数：2层，地上1层及地下1层</p>
-                            <p>地址：深圳前海桂湾片区</p>
-                            <p>项目进度：全球招商进行中</p>
-                            <p>招商电话：0755-82912388-8369</p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-            	<a href="">
-                	<div class="tu"><img src="front/upload/pic10.jpg" alt=""/></div>
-                    <div class="wen">
-                    	<div class="title">乌沙大酒店</div>
-                        <div class="des">
-                        	<p>建筑面积：约50000㎡（商业部分）</p>
-                            <p>商业建筑：写字楼群街区商业</p>
-                            <p>建筑层数：2层，地上1层及地下1层</p>
-                            <p>地址：深圳前海桂湾片区</p>
-                            <p>项目进度：全球招商进行中</p>
-                            <p>招商电话：0755-82912388-8369</p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-            	<a href="">
-                	<div class="tu"><img src="front/upload/pic10.jpg" alt=""/></div>
-                    <div class="wen">
-                    	<div class="title">乌沙大酒店</div>
-                        <div class="des">
-                        	<p>建筑面积：约50000㎡（商业部分）</p>
-                            <p>商业建筑：写字楼群街区商业</p>
-                            <p>建筑层数：2层，地上1层及地下1层</p>
-                            <p>地址：深圳前海桂湾片区</p>
-                            <p>项目进度：全球招商进行中</p>
-                            <p>招商电话：0755-82912388-8369</p>
-                        </div>
-                    </div>
+        <ul class="join_b clearfix">
+        	<li th:each="item,state:${itemList.get(4)}">
+                <a th:value="${item}" href="">
+                    <!--<img src="front/upload/pic9.jpg" alt=""/>-->
                 </a>
             </li>
         </ul>
