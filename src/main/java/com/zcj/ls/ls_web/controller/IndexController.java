@@ -1,6 +1,7 @@
 package com.zcj.ls.ls_web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,8 +13,8 @@ public class IndexController {
 
     //前台显示
     @RequestMapping("/index")
-    public String index(){
-
+    public String index(Model model){
+        model.addAttribute("page","index");
         return "front/index";
     }
 

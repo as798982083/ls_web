@@ -69,6 +69,7 @@ public class ServiceController {
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("itemList", itemList);
+        model.addAttribute("page","service");
         return "front/service";
     }
 

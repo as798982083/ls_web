@@ -4,25 +4,16 @@ import com.zcj.ls.ls_web.config.StringConfig;
 import com.zcj.ls.ls_web.dao.NewsRepository;
 import com.zcj.ls.ls_web.entity.News;
 import com.zcj.ls.ls_web.utils.FileUtil;
-import com.zcj.ls.ls_web.utils.SpringUtil;
 import com.zcj.ls.ls_web.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.spring5.context.SpringContextUtils;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +21,14 @@ import java.util.Optional;
  * 新闻中心
  */
 @Controller
-public class NewsController {
+public class ActivityController {
 
     private final NewsRepository newsRepository;
     //存储查询结果说明：成功或者失败的原因
     private String resultMessage = "";
 
     @Autowired
-    public NewsController(NewsRepository newsRepository) {
+    public ActivityController(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
     }
 

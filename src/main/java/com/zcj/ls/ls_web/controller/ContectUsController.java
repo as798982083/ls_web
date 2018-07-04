@@ -31,6 +31,7 @@ public class ContectUsController {
         ContectUs contectUs = getContectUs();
         model.addAttribute("contectUs",contectUs);
         model.addAttribute("msg",resultMessage);
+        model.addAttribute("page","contectUs");
         return "front/contectUs";
     }
 

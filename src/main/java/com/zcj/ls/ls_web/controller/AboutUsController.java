@@ -46,6 +46,7 @@ public class AboutUsController {
         }
         model.addAttribute("aboutUs", aboutUs.get());
         model.addAttribute("msg", resultMessage);
+        model.addAttribute("page","aboutUsDetail");
         return "front/aboutUsDetail";
     }
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <div class="header">
+        <div class="head clearfix">
+            <div class="logo"><a href=""><img src="front/images/logo.png" alt="公司名称"/></a></div>
+            <div class="head_r clearfix">
+                <div class="search">
+                    <input name="" type="text">
+                    <input name="" type="submit" value="">
+                </div>
+                <div class="nav_m">
+                    <div class="n_icon">导航栏</div>
+                    <ul class="nav clearfix">
+                        <li class="page_index now"><a href="index">首页</a></li>
+                        <li class="page_aboutUsDetail"><a href="aboutUsDetail">关于我们</a></li>
+                        <li class="page_news"><a href="news">新闻中心</a></li>
+                        <li class="page_service"><a href="service">核心业务</a></li>
+                        <!--<li class="er"><a href="service">核心业务</a></li>-->
+                        <!--<li class="page_join"><a href="join">合作伙伴</a></li>-->
+                        <li class="page_contectUs"><a href="contectUs">联系我们</a></li>
+                    </ul>
+                    <div class="er_m">
+                        <div class="hx">
+                            <i>&nbsp;</i>
+                            <div class="b_head">
+                                核心业务<em>Core business</em>
+                            </div>
+                            <div class="hx_m clearfix">
+                                <ul class="hx_ml">
+                                    <li><a href="">孵化器</a></li>
+                                    <li><a href="">智造联盟</a></li>
+                                    <li><a href="">创客公寓</a></li>
+                                    <li><a href="">商业街</a></li>
+                                    <li><a href="">商务办公</a></li>
+                                    <li><a href="">电子商务</a></li>
+                                </ul>
+                                <div class="hx_mr"><img src="front/upload/pic3.jpg" alt=""/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--接收后台model中的值-->
+    <input type="hidden" th:value="${page}" id="page"/>
+    <script th:inline="javascript">
+        var page = $("#page").val();
+        var $navs = $(".nav").children("li");
+        $navs.each(function(){
+            if($(this).hasClass("now")) $(this).removeClass("now");
+            if($(this).hasClass("page_"+page)) $(this).addClass("now");
+        })
+    </script>
+</body>
+</html>
