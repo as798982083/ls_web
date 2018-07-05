@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <title>公司名称</title>
+    <title>活动中心</title>
     <link rel="stylesheet" type="text/css" href="front/css/reset.css"/>
     <script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="front/js/js_z.js"></script>
@@ -21,9 +21,9 @@
     <div class="news clearfix">
     	<div class="news_l">
         	<div class="scd_top">
-                <span>头条新闻</span>
+                <span>置顶活动</span>
                 <div class="pst">
-                    当前位置：<a href="index">首页</a>-<a href="">新闻中心</a>
+                    当前位置：<a href="index">首页</a>-<a href="">活动中心</a>
                 </div>
             </div>
             <div class="new_m">
@@ -34,14 +34,13 @@
                   <div class="go slidegrid">
                     <ul class="slideitems">
                       <li>
-                      	<div class="tu"><a th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"> <img th:src="${newsTop.imageUrl}"></a></div>
+                      	<div class="tu"><a th:name="${activityTop.id}" href="javascript:void(0)" onclick="activityDetail(this)"> <img th:src="${activityTop.imageUrl}"></a></div>
                         <div class="n_m">
                             <div class="title">
-                                <span th:text="${#dates.format(newsTop.createTime, 'yyyy-MM-dd')}"></span>
-                                <p class="name"><a th:text="${newsTop.title}" th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>
+                                <span th:text="${#dates.format(activityTop.createTime, 'yyyy-MM-dd')}"></span>
+                                <p class="name"><a th:text="${activityTop.title}" th:name="${activityTop.id}" href="javascript:void(0)" onclick="activityDetail(this)"></a></p>
                             </div>
-                            <div th:text="${newsTop.content}" class="des" >
-                                <!--头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...-->
+                            <div th:text="${activityTop.content}" class="des" >
                             </div>
                         </div>
                       </li>
@@ -55,26 +54,26 @@
                 </script> 
             	<!--<div class="n_m" style="display: none">-->
                     <!--<div class="title">-->
-                        <!--<span th:text="${#dates.format(newsTop.createTime, 'yyyy-MM-dd')}"></span>-->
-                        <!--<p class="name"><a th:text="${newsTop.title}" th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>-->
+                        <!--<span th:text="${#dates.format(activityTop.createTime, 'yyyy-MM-dd')}"></span>-->
+                        <!--<p class="name"><a th:text="${activityTop.title}" th:name="${activityTop.id}" href="javascript:void(0)" onclick="activityDetail(this)"></a></p>-->
                     <!--</div>-->
-                    <!--<div th:text="${newsTop.content}" class="des" >-->
-                        <!--&lt;!&ndash;头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...&ndash;&gt;-->
+                    <!--<div th:text="${activityTop.content}" class="des" >-->
+                        <!--&lt;!&ndash;头条活动长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条活动长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条活动长安乌沙大酒店开始...&ndash;&gt;-->
                     <!--</div>-->
                 <!--</div>-->
             </div>
         </div>
         <div class="news_r">
         	<div class="scd_top">
-                <span>全部新闻</span>
+                <span>全部活动</span>
             </div>
-            <div th:each="news,newsState:${newsList}" class="new_m">
+            <div th:each="activity,activityState:${activityList}" class="new_m">
                 <div class="n_m">
                     <div class="title">
-                        <span th:text="${#dates.format(news.createTime, 'yyyy-MM-dd')}"></span>
-                        <p class="name"><a th:text="${news.title}" th:name="${news.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>
+                        <span th:text="${#dates.format(activity.createTime, 'yyyy-MM-dd')}"></span>
+                        <p class="name"><a th:text="${activity.title}" th:name="${activity.id}" href="javascript:void(0)" onclick="activityDetail(this)"></a></p>
                     </div>
-                    <div th:text="${news.content}" class="des" >
+                    <div th:text="${activity.content}" class="des" >
                     </div>
                 </div>
             </div>
@@ -82,7 +81,7 @@
     </div>
     <div class="space_hx">&nbsp;</div>
     <div class="pages">
-    	<a href="news">首页</a>
+    	<a href="activity">首页</a>
         <a href="javascript:void(0)"  onclick="prePage()">上一页</a>
         <a href="javascript:void(0)"  onclick="nextPage()">下一页</a>
         <a href="javascript:void(0)"  onclick="lastPage()">尾页</a>
@@ -92,8 +91,8 @@
 <div th:include="front/footer" ></div>
 <!--底部-->
 <script type="text/javascript">
-    function newsDetail(obj) {
-        var url = "newsDetail?id="+obj.name
+    function activityDetail(obj) {
+        var url = "activityDetail?id="+obj.name
         window.location.href= url ;
     }
     function prePage() {
@@ -101,20 +100,19 @@
         if(pageNum>=1) {
             pageNum -= 1;
         }
-        window.location.href= "news?pageNum="+pageNum;
+        window.location.href= "activity?pageNum="+pageNum;
     }
     function nextPage() {
-        debugger
         var pageNum = [[${pageNum}]];
         var totalPages = [[${totalPages}]];
         if(pageNum<totalPages) {
             pageNum += 1;
         }
-        window.location.href= "news?pageNum="+pageNum;
+        window.location.href= "activity?pageNum="+pageNum;
     }
     function lastPage() {
         var totalPages = [[${totalPages}]];
-        window.location.href= "news?pageNum="+totalPages;
+        window.location.href= "activity?pageNum="+totalPages;
     }
 </script>
 </body>

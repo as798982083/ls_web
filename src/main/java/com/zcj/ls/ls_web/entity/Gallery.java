@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Activity {
+public class Gallery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

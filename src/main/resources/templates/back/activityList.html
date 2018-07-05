@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="back/css/icheck_skins/all.css" rel="stylesheet" />
+		<link rel="stylesheet" href="back/css/bootstrap-fileupload.css" />
+
+		<link rel="stylesheet" href="back/css/tabs.css" />
+		<link rel="stylesheet" href="back/css/layout.css" />
+		<link rel="stylesheet" href="back/css/bootstrap.css" />
+		<link rel="stylesheet" href="back/css/table.css"  />
+		<link rel="stylesheet" href="back/css/font-awesome.css" />
+
+	</head>
+    <style>
+        .item_content ul {
+            list-style: none;
+        }
+
+            .item_content ul li {
+                width: 370px;
+                height: 430px;
+                float: left;
+                margin-right: 30px;
+            }
+    </style>
+	<body>
+		<ul class="tabs" style="background-color: #faf3f3">
+			<li class="current">
+				<a href="activityList" id="#tab1">文章管理</a>
+			</li>
+			<li>
+				<a href="activityAdd" id="#tab2">添加文章</a>
+			</li>
+		</ul>
+		<div class="tabs_content" style="">
+			<!--文章列表-->
+			<div id="tab1" style="display: block;">
+				<table id="tbRecord">
+					<!--表格标题-->
+					<thead>
+						<tr>
+							<th>文章标题</th>
+							<!--<th>文章简介</th>-->
+							<th>创建时间</th>
+							<th>头条</th>
+							<th>发布</th>
+							<th>编辑</th>
+							<th>删除</th>
+						</tr>
+					</thead>
+					<!--表格内容-->
+					<tbody>
+						<tr th:each="activity,activityStat:${activityList}">
+							<td th:text="${activity.title}"></td>
+							<!--<td th:text="${activity.content}"></td>-->
+							<td th:text="${activity.createTime}"></td>
+							<!--<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;"><button class="btn btn-primary"><i class="icon-edit" style="margin-right:3px"></i>编辑</button></td>-->
+							<td class="td_column_edit" id="td_column_top_1" align="center" style="cursor:pointer;">
+								<form th:action="@{/activitySetTop}" method="post">
+									<input  type="hidden" th:value="${activity.id}"  name="id">
+									<input  type="hidden" th:value="${activity.isTop}"  name="isTop">
+									<button type="submit" class="btn btn-success">
+										<div th:if="${activity.isTop}"><span>已置顶</span></div>
+										<div th:unless="${activity.isTop}"><span>未置顶</span></div>
+									</button>
+								</form>
+							</td>
+							<td class="td_column_edit" id="td_column_publish_1" align="center" style="cursor:pointer;">
+								<form th:action="@{/activitySetPublish}" method="post">
+									<input  type="hidden" th:value="${activity.id}"  name="id">
+									<input  type="hidden" th:value="${activity.isPublish}"  name="isPublish">
+									<button type="submit" class="btn btn-warning">
+										<div th:if="${activity.isPublish}"><span>已发布</span></div>
+										<div th:unless="${activity.isPublish}"><span>未发布</span></div>
+									</button>
+								</form>
+							</td>
+							<td class="td_column_edit" id="td_column_edit_1" align="center" style="cursor:pointer;">
+								<form th:action="@{/activityEdit}" method="post">
+									<input  type="hidden" th:value="${activity.id}"  name="id">
+									<button type="submit" class="btn btn-primary">
+										<!--<i class="icon-edit" style="margin-right:3px"></i>-->
+										编辑
+									</button>
+								</form>
+							</td>
+							<td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;">
+								<form th:action="@{/activityDelete}" method="post">
+									<input  type="hidden" th:value="${activity.id}"  name="id">
+									<button  type="submit" class="btn btn-danger">
+										<!--<i class="icon-trash" style="margin-right:3px"></i>-->
+										删除
+									</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<script type="text/javascript" src="back/js/jquery-1.8.3.min.js"></script>
+		</div>
+	</body>
+
+</html>

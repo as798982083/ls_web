@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
@@ -87,34 +86,34 @@
 				<li id="user-panel" style="color: white;font-size: 22px;margin-top: 30px;">
 				 cms  后台管理系统
 				</li>
-				<!--<li>-->
-					<!--<ul id="top-nav">-->
-						<!--<li class="nav-item">-->
-							<!--<a href="index.html">-->
-								<!--<img src="back/images/Setup.png" alt="">-->
-								<!--<p>首页</p>-->
-							<!--</a>-->
-						<!--</li>-->
-						<!--<li class="nav-item">-->
-							<!--<a href="index.html">-->
-								<!--<img src="back/images/Awards.png" alt="">-->
-								<!--<p>商家信息</p>-->
-							<!--</a>-->
-						<!--</li>-->
-						<!--<li class="nav-item">-->
-						<!--<a href="index.html">-->
-								<!--<img src="back/images/Radio bug.png" alt="">-->
-								<!--<p>新闻娱乐</p>-->
-							<!--</a>-->
-						<!--</li>-->
-						<!--<li class="nav-item">-->
-							<!--<a href="index.html">-->
-								<!--<img src="back/images/Chinese food.png" alt="">-->
-								<!--<p>吃喝玩乐</p>-->
-							<!--</a>-->
-						<!--</li>-->
-					<!--</ul>-->
-				<!--</li>-->
+				<!--<li>
+					<ul id="top-nav">
+						<li class="nav-item">
+							<a href="index.html">
+								<img src="back/images/Setup.png" alt="">
+								<p>首页</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.html">
+								<img src="back/images/Awards.png" alt="">
+								<p>商家信息</p>
+							</a>
+						</li>
+						<li class="nav-item">
+						<a href="index.html">
+								<img src="back/images/Radio bug.png" alt="">
+								<p>新闻娱乐</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.html">
+								<img src="back/images/Chinese food.png" alt="">
+								<p>吃喝玩乐</p>
+							</a>
+						</li>
+					</ul>
+				</li> -->
 			</ul>
 		</div>
 		<!--页面头部        结束-->
@@ -126,9 +125,12 @@
 				<!--动态加载页面对应菜单      开始-->
 				<div class="menuItem menugrid">
 					<div class="menu-head menuselect">
-						<h2>商家信息设置</h2>
+						<h2>菜单</h2>
 					</div>
 					<ul class="menu-content" style="display: block;">
+						<li>
+							<a href="gallery" target="right">首页大图</a>
+						</li>
 						<li>
 							<a href="aboutUsEdit" target="right">关于我们</a>
 						</li>
@@ -172,7 +174,7 @@
 			</div>
 
 			<div class="body" >
-				<iframe src="moduleSetting" border="none" width="100%" name="right" scrolling="no" height="1200px"></iframe>
+				<iframe src="indexTopImg" border="none" width="100%" name="right" scrolling="no" height="1200px"></iframe>
 			</div>
 		</div>
 		<!--页面内容        结束-->

@@ -25,13 +25,16 @@ public class IndexController {
         return "back/index";
     }
 
-    //后台管理
-    @RequestMapping("/moduleSetting")
-    public String moduleSetting(){
+    //大图管理  后台
+    @RequestMapping("/gallery")
+    public String gallery(){
 
-        return "back/moduleSetting";
+        return "back/gallery";
     }
+    //大图保存  后台
+    @RequestMapping("/gallerySave")
+    public String gallerySave(){
 
-
-
+        return "redirect:/gallery";
+    }
 }
