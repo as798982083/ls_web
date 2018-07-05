@@ -1,6 +1,8 @@
 package com.zcj.ls.ls_web;
 
+import com.zcj.ls.ls_web.config.StringConfig;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -62,4 +64,6 @@ public class Mytest {
         Date nowDate = df.parse(nowString);
         System.out.println(nowString);
     }
+
+
 }

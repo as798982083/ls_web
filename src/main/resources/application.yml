@@ -4,6 +4,12 @@ server:
 #  servlet:
 #    context-path: /boot
 
+
+#自定义的属性，指定了一个路径，注意要以/结尾
+#D:/ls_web/upload/目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
+web:
+  upload-path: D:/ls_web/upload/
+
 #数据库连接
 spring:
   datasource:
@@ -25,9 +31,15 @@ spring:
   #页面缓存
   thymeleaf:
     cache: false
+  mvc:
+    #表示所有的访问都经过静态资源路径
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/,file:${web.upload-path}
 
-
-  web.upload-path=D:/temp/study13/
-  spring.mvc.static-path-pattern=/**
-  spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,\
-    classpath:/static/,classpath:/public/,file:${web.upload-path}
+#
+#
+#  web.upload-path=D:/temp/study13/
+#  spring.mvc.static-path-pattern=/**
+#  spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,\
+#    classpath:/static/,classpath:/public/,file:${web.upload-path}

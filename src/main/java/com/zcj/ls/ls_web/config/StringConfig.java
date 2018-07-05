@@ -9,5 +9,4 @@ public class StringConfig {
     public static final String brand = "brand";
     public static final String projectBrief = "projectBrief";
 
-
 }

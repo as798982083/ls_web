@@ -35,8 +35,8 @@ import java.util.Optional;
 @Controller
 public class NewsController {
 
-    private final NewsRepository newsRepository;
     //存储查询结果说明：成功或者失败的原因
+    private final NewsRepository newsRepository;
     private String resultMessage = "";
 
     @Autowired
@@ -234,6 +234,9 @@ public class NewsController {
                 news.setIsTop(1);
                 int res2 = newsRepository.updateIsTop(news.getIsTop(), news.getId());
             }
+        }else {
+            news.setIsTop(1);
+            int res = newsRepository.updateIsTop(news.getIsTop(), news.getId());
         }
         return "redirect:/newsList";
     }
