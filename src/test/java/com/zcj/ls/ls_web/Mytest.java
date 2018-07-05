@@ -2,13 +2,18 @@ package com.zcj.ls.ls_web;
 
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mytest {
 
     @Test
-    public void testZhengze(){
+    public void testRegExp(){
         String content = "<p style=\"border:0px;margin-top:0.63em;margin-bottom:1.8em;padding:0px;counter-reset:list-1" +
                 " 0 list-2 0 list-3 0 list-4 0 list-5 0 list-6 0 list-7 0 list-8 0 list-9 0;color:#191919;font-family:" +
                 "&quot;PingFang SC&quot;, Arial, 微软雅黑, 宋体, simsun,sans-serif;font-size:16px;\">如果说阿根廷的出局" +
@@ -47,5 +52,14 @@ public class Mytest {
         htmlStr=m_html.replaceAll(""); //过滤html标签
 
         return htmlStr.trim(); //返回文本字符串
+    }
+
+    @Test
+    public void testDate() throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        String nowString = df.format(calendar.getTime());
+        Date nowDate = df.parse(nowString);
+        System.out.println(nowString);
     }
 }

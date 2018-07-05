@@ -1,8 +1,8 @@
 package com.zcj.ls.ls_web.controller;
 
 import com.zcj.ls.ls_web.config.StringConfig;
-import com.zcj.ls.ls_web.dao.NewsRepository;
-import com.zcj.ls.ls_web.entity.News;
+import com.zcj.ls.ls_web.dao.ActivityRepository;
+import com.zcj.ls.ls_web.entity.Activity;
 import com.zcj.ls.ls_web.utils.FileUtil;
 import com.zcj.ls.ls_web.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,164 +18,164 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 新闻中心
+ * 活动中心
  */
 @Controller
 public class ActivityController {
 
-    private final NewsRepository newsRepository;
+    private final ActivityRepository activityRepository;
     //存储查询结果说明：成功或者失败的原因
     private String resultMessage = "";
 
     @Autowired
-    public ActivityController(NewsRepository newsRepository) {
-        this.newsRepository = newsRepository;
+    public ActivityController(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
     }
 
     /**
-     * 新闻列表  前台
+     * 活动列表  前台
      * @param model
      * @return
      */
-    @RequestMapping("/news")
-    public String news(Model model) {
-        List<News> newsList = newsRepository.findAll();
-        if (newsList == null) {
+    @RequestMapping("/activity")
+    public String activity(Model model) {
+        List<Activity> activityList = activityRepository.findAll();
+        if (activityList == null) {
             resultMessage = "文章列表为空";
-            newsList = new ArrayList<News>();
+            activityList = new ArrayList<Activity>();
         }
         //去除富文本的标签
-        for(int i=0;i<newsList.size();i++) {
-            News news = newsList.get(i);
-            String content = news.getContent();
+        for(int i=0;i<activityList.size();i++) {
+            Activity activity = activityList.get(i);
+            String content = activity.getContent();
             content = StringUtil.delHTMLTag(content);
-            newsList.get(i).setContent(content);
+            activityList.get(i).setContent(content);
         }
-        model.addAttribute("newsList", newsList);
+        model.addAttribute("activityList", activityList);
         model.addAttribute("msg", resultMessage);
-        model.addAttribute("page","news");
-        return "front/news";
+        model.addAttribute("page","activity");
+        return "front/activity";
     }
 
     /**
-     * 新闻详情  前台
+     * 活动详情  前台
      * @param id 文章id
      * @return
      */
-    @RequestMapping("/newsDetail")
-    public String newsDetail(Model model, String id) {
+    @RequestMapping("/activityDetail")
+    public String activityDetail(Model model, String id) {
         Long targetId = Long.parseLong(id);
-        Optional<News> news = newsRepository.findById(targetId);
-        if (news == null) {
+        Optional<Activity> activity = activityRepository.findById(targetId);
+        if (activity == null) {
             resultMessage = "获取文章详情失败";
         }
-        model.addAttribute("news", news.get());
+        model.addAttribute("activity", activity.get());
         model.addAttribute("msg", resultMessage);
-        model.addAttribute("page","news");
-        return "front/newsDetail";
+        model.addAttribute("page","activity");
+        return "front/activityDetail";
     }
 
     /**
-     * 新闻列表  后台
+     * 活动列表  后台
      * @param model
      * @return
      */
-    @RequestMapping("/newsList")
-    public String newsShow(Model model) {
-        List<News> newsList = newsRepository.findAll();
-        if (newsList == null) {
+    @RequestMapping("/activityList")
+    public String activityShow(Model model) {
+        List<Activity> activityList = activityRepository.findAll();
+        if (activityList == null) {
             resultMessage = "文章列表为空";
-            newsList = new ArrayList<News>();
+            activityList = new ArrayList<Activity>();
         }
         //文章标题和正文去标签、截取前20个文字
-        for(int i=0;i<newsList.size();i++) {
-            News news = newsList.get(i);
-            String title = news.getTitle();
-            String content = news.getContent();
+        for(int i=0;i<activityList.size();i++) {
+            Activity activity = activityList.get(i);
+            String title = activity.getTitle();
+            String content = activity.getContent();
             if (content.length() > 20) {
                 content = StringUtil.delHTMLTag(content).substring(0,20)+"...";
             }
             if (title.length() > 20) {
                 title = StringUtil.delHTMLTag(title).substring(0,20)+"...";
             }
-            newsList.get(i).setContent(content);
-            newsList.get(i).setTitle(title);
+            activityList.get(i).setContent(content);
+            activityList.get(i).setTitle(title);
         }
-        model.addAttribute("newsList", newsList);
+        model.addAttribute("activityList", activityList);
         model.addAttribute("msg", resultMessage);
-        return "back/newsList";
+        return "back/activityList";
     }
 
     /**
-     * 编辑新闻  页面跳转
+     * 编辑活动  页面跳转
      * @param model
      * @param id 文章id
      * @return 留在修改页
      */
-    @RequestMapping("/newsEdit")
-    public String newsEdit(Model model, String id) {
+    @RequestMapping("/activityEdit")
+    public String activityEdit(Model model, String id) {
         Long targetId = Long.parseLong(id);
-        Optional<News> news = newsRepository.findById(targetId);
-        if (news == null) {
+        Optional<Activity> activity = activityRepository.findById(targetId);
+        if (activity == null) {
             resultMessage = "获取文章详情失败";
         }
-        model.addAttribute("news", news.get());
+        model.addAttribute("activity", activity.get());
         model.addAttribute("msg", resultMessage);
-        return "back/newsEdit";
+        return "back/activityEdit";
     }
 
     /**
-     * 保存新闻
+     * 保存活动
      * 默认作者为：南京恒宇社会工作服务中心
-     * @param news
+     * @param activity
      * @param image
      * @return 返回文章列表页
      */
-    @RequestMapping("/newsSave")
-    public String newsSave(@ModelAttribute News news, MultipartFile image, @Autowired HttpServletRequest request) {
+    @RequestMapping("/activitySave")
+    public String activitySave(@ModelAttribute Activity activity, MultipartFile image, @Autowired HttpServletRequest request) {
         if (image != null) {
-            news.setImageUrl(FileUtil.saveFile(image,request));
+            activity.setImageUrl(FileUtil.saveFile(image,request));
         }
-        news.setAuthor(StringConfig.author);
-        Optional<News> old = newsRepository.findById(news.getId());
+        activity.setAuthor(StringConfig.author);
+        Optional<Activity> old = activityRepository.findById(activity.getId());
         if (!old.isPresent()) {
-            news.setAuthor("南京恒宇社会工作服务中心");
-            news.setCreateTime(System.currentTimeMillis());
-            News resNews = newsRepository.save(news);
-            if (resNews == null) {
+            activity.setAuthor("南京恒宇社会工作服务中心");
+            activity.setCreateTime(System.currentTimeMillis());
+            Activity resActivity = activityRepository.save(activity);
+            if (resActivity == null) {
                 resultMessage = "保存失败";
             } else {
                 resultMessage = "保存成功";
             }
         }else{
-            int res = newsRepository.updateNews(news.getTitle(), news.getAuthor(), news.getContent(),news.getImageUrl(), news.getId());
+            int res = activityRepository.updateActivity(activity.getTitle(), activity.getAuthor(), activity.getContent(),activity.getImageUrl(), activity.getId());
             if (res == 0) {
                 resultMessage = "保存失败";
             } else {
                 resultMessage = "保存成功";
             }
         }
-        return "redirect:/newsList";
+        return "redirect:/activityList";
     }
 
     /**
-     * 添加新闻  页面跳转
+     * 添加活动  页面跳转
      * @return
      */
-    @RequestMapping("/newsAdd")
-    public String newsAdd() {
-        return "back/newsAdd";
+    @RequestMapping("/activityAdd")
+    public String activityAdd() {
+        return "back/activityAdd";
     }
 
     /**
      * 删除文章  页面跳转
      * @return
      */
-    @RequestMapping("/newsDelete")
-    public String newsDelete(String id) {
+    @RequestMapping("/activityDelete")
+    public String activityDelete(String id) {
         Long targetId = Long.parseLong(id);
-        newsRepository.deleteById(targetId);
-        return "redirect:/newsList";
+        activityRepository.deleteById(targetId);
+        return "redirect:/activityList";
     }
 
 

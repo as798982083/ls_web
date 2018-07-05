@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class News {
@@ -13,12 +14,10 @@ public class News {
     private Long id;
 
     //创建时间
-    @CreatedDate
-    private Long createTime;
+    private Date createTime;
 
     //更新时间
-    @LastModifiedDate
-    private Long updateTime;
+    private Date updateTime;
 
     //标题
     private String title;
@@ -31,6 +30,15 @@ public class News {
 
     //文章图片
     private String imageUrl;
+
+    //是否发布
+    private int isPublish;
+
+    //是否置顶
+    private int isTop;
+
+    //逻辑删除位
+    private int delFlag;
 
     //正文
     @Lob
@@ -45,19 +53,19 @@ public class News {
         this.id = id;
     }
 
-    public Long getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Long getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Long updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -99,5 +107,29 @@ public class News {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(int isPublish) {
+        this.isPublish = isPublish;
+    }
+
+    public int getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(int isTop) {
+        this.isTop = isTop;
+    }
+
+    public int getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(int delFlag) {
+        this.delFlag = delFlag;
     }
 }

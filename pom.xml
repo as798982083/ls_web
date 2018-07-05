@@ -6,7 +6,7 @@
 	<groupId>com.zcj.ls</groupId>
 	<artifactId>ls_web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>ls_web</name>
 	<description>溧水恒宇智慧社区网站</description>
@@ -67,6 +67,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!--因配置外部TOMCAT 而配置-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

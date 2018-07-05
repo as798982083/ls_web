@@ -23,22 +23,25 @@
         	<div class="scd_top">
                 <span>头条新闻</span>
                 <div class="pst">
-                    当前位置：<a href="">首页</a>-<a href="">新闻中心</a>
+                    当前位置：<a href="index">首页</a>-<a href="">新闻中心</a>
                 </div>
             </div>
             <div class="new_m">
-            	<div class="box mainPhoto"> <span class="goleft nextPage"><a href="javascript:void(0)"><img src="front/images/prev.png"/></a></span>
+            	<div class="box mainPhoto"> <span class="goleft nextPage">
+                    <a href="javascript:void(0)">
+                        <img src="front/images/prev.png"/>
+                    </a></span>
                   <div class="go slidegrid">
                     <ul class="slideitems">
                       <li>
-                      	<div class="tu"><a href="news_d"><img src="front/upload/pic7.jpg" alt=""/></a></div>
+                      	<div class="tu"><a th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"> <img th:src="${newsTop.imageUrl}"></a></div>
                         <div class="n_m">
                             <div class="title">
-                                <span>2015-1-11</span>
-                                <p class="name"><a href="news_d">头条新闻长安乌沙大酒店开始啦</a></p>
+                                <span th:text="${#dates.format(newsTop.createTime, 'yyyy-MM-dd')}"></span>
+                                <p class="name"><a th:text="${newsTop.title}" th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>
                             </div>
-                            <div class="des">
-                                头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安店开始...
+                            <div th:text="${newsTop.content}" class="des" >
+                                <!--头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...-->
                             </div>
                         </div>
                       </li>
@@ -50,15 +53,15 @@
                         $('.mainPhoto .slidegrid').scrollable({size:1,circular:true,next:'.nextPage',prev:'.prevPage'}).autoscroll();
                     });
                 </script> 
-            	<div class="n_m" style="display: none">
-                    <div class="title">
-                        <span>2015-1-11</span>
-                        <p class="name"><a href="news_d">头条新闻长安乌沙大酒店开始啦</a></p>
-                    </div>
-                    <div class="des">
-                        头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...
-                    </div>
-                </div>
+            	<!--<div class="n_m" style="display: none">-->
+                    <!--<div class="title">-->
+                        <!--<span th:text="${#dates.format(newsTop.createTime, 'yyyy-MM-dd')}"></span>-->
+                        <!--<p class="name"><a th:text="${newsTop.title}" th:name="${newsTop.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>-->
+                    <!--</div>-->
+                    <!--<div th:text="${newsTop.content}" class="des" >-->
+                        <!--&lt;!&ndash;头条新闻长安乌沙大酒店开始啦九月的深圳秋高氣爽陽光和煦中國公益慈善項目始啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒啦九月的深圳秋深圳會展中心順利舉辦条新闻长安乌沙大酒店开始...&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="news_r">
@@ -68,7 +71,7 @@
             <div th:each="news,newsState:${newsList}" class="new_m">
                 <div class="n_m">
                     <div class="title">
-                        <span th:text="${news.createTime}"></span>
+                        <span th:text="${#dates.format(news.createTime, 'yyyy-MM-dd')}"></span>
                         <p class="name"><a th:text="${news.title}" th:name="${news.id}" href="javascript:void(0)" onclick="newsDetail(this)"></a></p>
                     </div>
                     <div th:text="${news.content}" class="des" >
