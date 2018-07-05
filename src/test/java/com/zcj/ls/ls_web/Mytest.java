@@ -1,6 +1,8 @@
 package com.zcj.ls.ls_web;
 
 import com.zcj.ls.ls_web.config.StringConfig;
+import com.zcj.ls.ls_web.dao.NewsRepository;
+import com.zcj.ls.ls_web.entity.News;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,5 +68,13 @@ public class Mytest {
         System.out.println(nowString);
     }
 
+    @Autowired
+    NewsRepository newsRepository;
+
+    @Test
+    public void testRepository(){
+//        List<News> newsList = newsRepository.findByIsPublishAndDelFlag();
+//        System.out.println(newsList.size());
+    }
 
 }

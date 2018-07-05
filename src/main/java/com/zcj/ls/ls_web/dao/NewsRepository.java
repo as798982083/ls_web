@@ -1,13 +1,13 @@
 package com.zcj.ls.ls_web.dao;
 
 import com.zcj.ls.ls_web.entity.News;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +17,14 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     //根据Id查找文章
     @Query("select u from News u where u.id = :id")
     Optional<News> findById(@Param("id") Long id);
+
+    //查找置顶文章
+    @Query("select u from News u where u.isTop = 1")
+    Optional<News> findByTop();
+
+//    //查找已发布、未删除文章
+//    @Query("select u from News u where u.isPublish = 1 and u.delFlag = 0")
+//    List<News> findByIsPublishAndDelFlag(Pageable pageable);
 
     //根据内容和标题关键词查找文章：用于文章列表页面的搜索功能
 
@@ -39,17 +47,13 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Query(value = "update News set isTop=?1 where id=?2 ")
     int updateIsTop(int isTop, Long id);
 
-    //查找置顶文章
-    @Query("select u from News u where u.isTop = 1")
-    Optional<News> findByTop();
-
     //更新文章发布状态
     @Transactional
     @Modifying
     @Query(value = "update News set isPublish=?1 where id=?2 ")
     int updateIsPublish(int isPublish, Long id);
 
-    //逻辑删除文章
+    //更新文章逻辑删除字段
     @Transactional
     @Modifying
     @Query(value = "update News set delFlag=?1 where id=?2 ")

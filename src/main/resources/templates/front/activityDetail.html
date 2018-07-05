@@ -27,7 +27,7 @@
     	<div class="scd_ml">
         	<h1 th:text="${news.title}"></h1>
             <div class="time">
-            	<span th:text="${news.createTime}"></span>
+            	<span th:text="${{#dates.format(news.createTime, 'yyyy-MM-dd HH:mm:ss')}}"></span>
                 <span >来源：</span><span th:text="${news.author}"></span>
                 <span>浏览次数  </span><span th:text="${news.readNum}"></span>
                 <div class="font">

@@ -78,24 +78,44 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-                function newsDetail(obj) {
-                    var url = "newsDetail?id="+obj.name
-                    window.location.href= url ;
-                }
-            </script>
         </div>
     </div>
     <div class="space_hx">&nbsp;</div>
     <div class="pages">
-    	<a href="">首页</a>
-        <a href="">上一页</a>
-        <a href="">下一页</a>
-        <a href="">尾页</a>
+    	<a href="news">首页</a>
+        <a href="javascript:void(0)"  onclick="prePage()">上一页</a>
+        <a href="javascript:void(0)"  onclick="nextPage()">下一页</a>
+        <a href="javascript:void(0)"  onclick="lastPage()">尾页</a>
     </div>
 </div>
 <!--底部-->
 <div th:include="front/footer" ></div>
 <!--底部-->
+<script type="text/javascript">
+    function newsDetail(obj) {
+        var url = "newsDetail?id="+obj.name
+        window.location.href= url ;
+    }
+    function prePage() {
+        var pageNum = [[${pageNum}]];
+        if(pageNum>=1) {
+            pageNum -= 1;
+        }
+        window.location.href= "news?pageNum="+pageNum;
+    }
+    function nextPage() {
+        debugger
+        var pageNum = [[${pageNum}]];
+        var totalPages = [[${totalPages}]];
+        if(pageNum<totalPages) {
+            pageNum += 1;
+        }
+        window.location.href= "news?pageNum="+pageNum;
+    }
+    function lastPage() {
+        var totalPages = [[${totalPages}]];
+        window.location.href= "news?pageNum="+totalPages;
+    }
+</script>
 </body>
 </html>

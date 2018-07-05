@@ -5,27 +5,18 @@ import com.zcj.ls.ls_web.dao.NewsRepository;
 import com.zcj.ls.ls_web.entity.News;
 import com.zcj.ls.ls_web.utils.DateUtil;
 import com.zcj.ls.ls_web.utils.FileUtil;
-import com.zcj.ls.ls_web.utils.SpringUtil;
 import com.zcj.ls.ls_web.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.spring5.context.SpringContextUtils;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,22 +41,35 @@ public class NewsController {
      * @return
      */
     @RequestMapping("/news")
-    public String news(Model model) {
-        //创建查询条件数据对象
+    public String news(Model model, Integer pageNum) {
+        if (pageNum == null) {
+            pageNum = 0;
+        }
+        //创建查询条件数据对象:只查找已发布、未删除的文章
         News newsEx = new News();
-        newsEx.setIsPublish(1);
-        newsEx.setDelFlag(0);
+        newsEx.setIsPublish(1); //已发布
+        newsEx.setDelFlag(0);   //未删除
         //创建匹配器，即如何使用查询条件
         ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
                 .withMatcher("isPublish", ExampleMatcher.GenericPropertyMatchers.exact()) //姓名采用“开始匹配”的方式查询
-                .withIgnorePaths("isTop");
+                .withIgnorePaths("isTop").withIgnorePaths("readNum");
         //创建查询实例
         Example<News> ex = Example.of(newsEx,matcher);
-        List<News> newsList = newsRepository.findAll(ex);
-        if (newsList == null) {
+        List<News> totalNews = newsRepository.findAll(ex);
+        int totalPages = (totalNews.size() / 4);
+        //创建分页器
+        Pageable pageable = PageRequest.of(pageNum, 4);
+        //查找当前页文章
+        Page<News> newsPage = newsRepository.findAll(ex,pageable);
+        List<News> newsList = new ArrayList<>();
+        if (newsPage.getTotalElements() == 0) {
             resultMessage = "文章列表为空";
-            newsList = new ArrayList<News>();
+        }else {
+            for (News news : newsPage) {
+                newsList.add(news);
+            }
         }
+        Optional<News> newsTop = newsRepository.findByTop();
         //去除富文本的标签
         for(int i=0;i<newsList.size();i++) {
             News news = newsList.get(i);
@@ -73,10 +77,15 @@ public class NewsController {
             content = StringUtil.delHTMLTag(content);
             newsList.get(i).setContent(content);
         }
-        Optional<News> newsTop = newsRepository.findByTop();
+        News news = newsTop.get();
+        String content = news.getContent();
+        content = StringUtil.delHTMLTag(content);
+        newsTop.get().setContent(content);
 
         model.addAttribute("newsList", newsList);
         model.addAttribute("newsTop", newsTop.get());
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("msg", resultMessage);
         model.addAttribute("page","news");
         return "front/news";
@@ -93,6 +102,11 @@ public class NewsController {
         Optional<News> news = newsRepository.findById(targetId);
         if (news == null) {
             resultMessage = "获取文章详情失败";
+        }else{
+            //更新阅读次数
+            int readNum = news.get().getReadNum() + 1;
+            newsRepository.updateReadNum(readNum,news.get().getId());
+            news.get().setReadNum(readNum);
         }
         model.addAttribute("news", news.get());
         model.addAttribute("msg", resultMessage);
