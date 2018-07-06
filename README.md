@@ -25,4 +25,4 @@
  **方法名**： 驼峰命名法。eg： `public void newsShow(){}`  
  **路由命名**：驼峰命名法。eg：新闻列表页面`newsShow.html`，则跳转到新闻列表的路由为`@RequestMapping("/newsShow")`
  
- https://blog.csdn.net/j_bean/article/details/73992070
+jar包发布：ieda-mavenProject-lifecycle-install，目录的target下会生成.jar的项目文件。

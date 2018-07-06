@@ -27,10 +27,13 @@
                 </div>
             </div>
             <div class="new_m">
-            	<div class="box mainPhoto"> <span class="goleft nextPage">
-                    <a href="javascript:void(0)">
-                        <img src="front/images/prev.png"/>
-                    </a></span>
+            	<div class="box mainPhoto">
+                    <!--上一页-->
+                    <span class="goleft nextPage">
+                        <a href="javascript:void(0)">
+                            <img src="front/images/prev.png"/>
+                        </a>
+                    </span>
                   <div class="go slidegrid">
                     <ul class="slideitems">
                       <li>
@@ -46,7 +49,13 @@
                       </li>
                     </ul>
                   </div>
-                  <span class="goright prevPage"><a href="javascript:void(0)"><img src="front/images/next.png" /></a></span> </div>
+                  <!--下一页-->
+                  <span class="goright prevPage">
+                      <a href="javascript:void(0)">
+                          <img src="front/images/next.png" />
+                      </a>
+                  </span>
+                </div>
                 <script>
                     $(function(){
                         $('.mainPhoto .slidegrid').scrollable({size:1,circular:true,next:'.nextPage',prev:'.prevPage'}).autoscroll();

@@ -1,10 +1,12 @@
 package com.zcj.ls.ls_web.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "web")
+@PropertySource("classpath:application.yml")
+@ConfigurationProperties(prefix = "system-params")
 public class WebConfig {
 
     private String uploadPath;

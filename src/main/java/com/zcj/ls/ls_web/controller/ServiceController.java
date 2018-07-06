@@ -14,7 +14,10 @@ import java.util.List;
 public class ServiceController {
 
     @RequestMapping("/service")
-    public String service(Model model) {
+    public String service(Model model, Integer itemIndex) {
+        if (itemIndex == null) {
+            itemIndex = 0;
+        }
         List categoryList = new ArrayList();
         categoryList.add("为小服务");
         categoryList.add("助残服务");
@@ -68,7 +71,7 @@ public class ServiceController {
 
 
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("itemList", itemList);
+        model.addAttribute("itemList", itemList.get(itemIndex));
         model.addAttribute("page","service");
         return "front/service";
     }

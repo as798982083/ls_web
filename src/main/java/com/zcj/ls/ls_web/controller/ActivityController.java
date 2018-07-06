@@ -3,6 +3,7 @@ package com.zcj.ls.ls_web.controller;
 import com.zcj.ls.ls_web.config.StringConfig;
 import com.zcj.ls.ls_web.dao.ActivityRepository;
 import com.zcj.ls.ls_web.entity.Activity;
+import com.zcj.ls.ls_web.entity.News;
 import com.zcj.ls.ls_web.utils.DateUtil;
 import com.zcj.ls.ls_web.utils.FileUtil;
 import com.zcj.ls.ls_web.utils.StringUtil;
@@ -55,9 +56,9 @@ public class ActivityController {
         //创建查询实例
         Example<Activity> ex = Example.of(activityEx,matcher);
         List<Activity> totalActivity = activityRepository.findAll(ex);
-        int totalPages = (totalActivity.size() / 4);
+        int totalPages = (totalActivity.size() / 3);
         //创建分页器
-        Pageable pageable = PageRequest.of(pageNum, 4);
+        Pageable pageable = PageRequest.of(pageNum, 3);
         //查找当前页文章
         Page<Activity> activityPage = activityRepository.findAll(ex,pageable);
         List<Activity> activityList = new ArrayList<>();
@@ -120,7 +121,15 @@ public class ActivityController {
      */
     @RequestMapping("/activityList")
     public String activityShow(Model model) {
-        List<Activity> activityList = activityRepository.findAll();
+        Activity activityEx = new Activity();
+        activityEx.setDelFlag(0);   //未删除
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withIgnorePaths("isTop").withIgnorePaths("readNum").withIgnorePaths("isPublish");
+        //创建查询实例
+        Example<Activity> ex = Example.of(activityEx,matcher);
+        //查找当前页文章
+        List<Activity> activityList = activityRepository.findAll(ex);
         if (activityList == null) {
             resultMessage = "文章列表为空";
             activityList = new ArrayList<Activity>();

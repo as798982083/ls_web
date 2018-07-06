@@ -56,9 +56,9 @@ public class NewsController {
         //创建查询实例
         Example<News> ex = Example.of(newsEx,matcher);
         List<News> totalNews = newsRepository.findAll(ex);
-        int totalPages = (totalNews.size() / 4);
+        int totalPages = (totalNews.size() / 3);
         //创建分页器
-        Pageable pageable = PageRequest.of(pageNum, 4);
+        Pageable pageable = PageRequest.of(pageNum, 3);
         //查找当前页文章
         Page<News> newsPage = newsRepository.findAll(ex,pageable);
         List<News> newsList = new ArrayList<>();
@@ -121,7 +121,15 @@ public class NewsController {
      */
     @RequestMapping("/newsList")
     public String newsShow(Model model) {
-        List<News> newsList = newsRepository.findAll();
+        News newsEx = new News();
+        newsEx.setDelFlag(0);   //未删除
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withIgnorePaths("isTop").withIgnorePaths("readNum").withIgnorePaths("isPublish");
+        //创建查询实例
+        Example<News> ex = Example.of(newsEx,matcher);
+        //查找当前页文章
+        List<News> newsList = newsRepository.findAll(ex);
         if (newsList == null) {
             resultMessage = "文章列表为空";
             newsList = new ArrayList<News>();

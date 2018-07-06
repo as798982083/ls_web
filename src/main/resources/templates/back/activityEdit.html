@@ -29,10 +29,10 @@
 	<body>
         <ul class="tabs" style="background-color: #faf3f3">
             <li>
-                <a href="activityList" id="#tab1" >文章管理</a>
+                <a href="activityList" id="#tab1" >活动管理</a>
             </li>
             <li class="current">
-                <a href="javascript:void(0)" id="#tab2">编辑文章</a>
+                <a href="javascript:void(0)" id="#tab2">编辑活动</a>
             </li>
         </ul>
         <div class="tabs_content" style="">
@@ -45,16 +45,16 @@
                                 <legend></legend>
                                 <div class="control-group">
                                     <!-- Text input-->
-                                    <label class="control-label">文章标题</label>
+                                    <label class="control-label">活动标题</label>
                                     <div class="controls">
-                                        <input id="title" name="title" th:value="${activity.title}" class="input-xlarge" data-val="true" data-val-required="文章标题不能为空" placeholder="文章标题" type="text" value="" autocomplete="Off">
+                                        <input id="title" name="title" th:value="${activity.title}" class="input-xlarge" data-val="true" data-val-required="活动标题不能为空" placeholder="活动标题" type="text" value="" autocomplete="Off">
                                         <span class="field-validation-valid" data-valmsg-for="title" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <!--文章图片-->
+                                <!--活动图片-->
                                 <div class="control-group">
                                     <!-- Text input-->
-                                    <label class="control-label">文章图片</label>
+                                    <label class="control-label">活动图片</label>
                                     <div class="controls">
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
@@ -69,19 +69,19 @@
                                     </div>
                                 </div>
 
-                                <!--文章简介-->
+                                <!--活动简介-->
                                 <!--<div class="control-group">-->
                                     <!--&lt;!&ndash; Text input&ndash;&gt;-->
-                                    <!--<label class="control-label" for="input01">文章简介</label>-->
+                                    <!--<label class="control-label" for="input01">活动简介</label>-->
                                     <!--<div class="controls">-->
-                                        <!--<textarea cols="20" data-val="true" data-val-required="文章简介不能为空" id="ArticleIntroduce" name="ArticleIntroduce" rows="2" style="width:800px;height:300px;"></textarea>-->
+                                        <!--<textarea cols="20" data-val="true" data-val-required="活动简介不能为空" id="ArticleIntroduce" name="ArticleIntroduce" rows="2" style="width:800px;height:300px;"></textarea>-->
                                     <!--</div>-->
                                 <!--</div>-->
                                 <div class="control-group">
                                     <!-- Text input-->
-                                    <label class="control-label" for="content">文章内容</label>
+                                    <label class="control-label" for="content">活动内容</label>
                                     <div class="controls">
-                                        <textarea id="content" name="content" th:text="${activity.content}" cols="20" data-val="true" data-val-required="文章内容" rows="2" style="width:800px;height:300px;"></textarea>
+                                        <textarea id="content" name="content" th:text="${activity.content}" cols="20" data-val="true" data-val-required="活动内容" rows="2" style="width:800px;height:300px;"></textarea>
                                     </div>
                                 </div>
 

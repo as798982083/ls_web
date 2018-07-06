@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<title>公司名称</title>
-<link rel="stylesheet" type="text/css" href="front/css/reset.css"/>
-<script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="front/js/js_z.js"></script>
-<link rel="stylesheet" type="text/css" href="front/css/thems.css">
-<link rel="stylesheet" type="text/css" href="front/css/responsive.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title>公司名称</title>
+    <link rel="stylesheet" type="text/css" href="front/css/reset.css"/>
+    <script type="text/javascript" src="front/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="front/js/js_z.js"></script>
+    <link rel="stylesheet" type="text/css" href="front/css/thems.css">
+    <link rel="stylesheet" type="text/css" href="front/css/responsive.css">
+
+    <link href="back/css/icheck_skins/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="back/css/bootstrap-fileupload.css" />
+    <link rel="stylesheet" href="back/css/tabs.css" />
+    <link rel="stylesheet" href="back/css/layout.css" />
+    <link rel="stylesheet" href="back/css/bootstrap.css" />
+    <link rel="stylesheet" href="back/css/table.css"  />
+    <link rel="stylesheet" href="back/css/font-awesome.css" />
 </head>
 
 <body>
@@ -21,36 +29,74 @@
 <div class="scd clearfix">
 	<div class="scd_top">
     	<div class="s_nav">
-        	<a href="" class="active"><span>政府机构</span></a>
-            <a href=""><span>研究机构</span></a>
-            <a href=""><span>合作企业</span></a>
-            <a href=""><span>金融机构</span></a>
-            <a href=""><span>合作大学</span></a>
+        	<a href="javascript:void(0)" class="active"><span>服务内容</span></a>
+            <a href="javascript:void(0)"><span>服务机构</span></a>
+            <a href="javascript:void(0)"><span>合作社区</span></a>
         </div>
         <div class="pst">
-        	当前位置：<a href="">首页</a>-<a href="">关于我们</a>
+        	当前位置：<a href="index">首页</a>-<a href="service">核心业务</a>
         </div>
     </div>
     <div class="join clearfix">
     	<dl class="join_a clearfix">
             <dd>
-            	<a th:each="category,state:${categoryList}" href="">
+            	<a th:each="category,state:${categoryList}" th:name="${state.index}" href="javascript:void(0)" onclick="changeItems(this)">
                     <span th:text="${category}"></span>
                 </a>
             </dd>
         </dl>
         <div class="space_hx">&nbsp;</div>
-        <ul class="join_b clearfix">
-        	<li th:each="item,state:${itemList.get(4)}">
-                <a th:value="${item}" href="">
-                    <!--<img src="front/upload/pic9.jpg" alt=""/>-->
-                </a>
-            </li>
-        </ul>
+        <!--<ul class="join_b clearfix">-->
+        	<!--<li th:each="item,state:${itemList}">-->
+                <!--<a th:text="${item}" href="">-->
+                    <!--&lt;!&ndash;<img src="front/upload/pic9.jpg" alt=""/>&ndash;&gt;-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <table id="tbRecord">
+            <!--表格标题-->
+            <thead>
+            <tr>
+                <th>服务名称</th>
+                <th>描述</th>
+                <th>参考价格</th>
+                <th>计费方式</th>
+                <th>常规服务时长（小时）</th>
+                <th>预约</th>
+            </tr>
+            </thead>
+            <!--表格内容-->
+            <tbody>
+            <tr th:each="item,state:${itemList}">
+                <td th:text="${item}"></td>
+                <td>一般家务，实际收费及工作内容视情况而定。</td>
+                <td style="text-align: center;">20元</td>
+                <td style="text-align: center;">小时</td>
+                <td style="text-align: center;">2</td>
+
+                <td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;">
+                    <!--<form th:action="@{/activityDelete}" method="post">-->
+                        <input  type="hidden" th:value="${item}"  name="id">
+                        <button  type="submit" class="btn btn-success"> <!--改成submit即可-->
+                            <!--<i class="icon-trash" style="margin-right:3px"></i>-->
+                            预约
+                        </button>
+                    <!--</form>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
 <!--底部-->
 <div th:include="front/footer" ></div>
 <!--底部-->
+<script th:inline="javascript">
+    function changeItems(obj) {
+        var itemIndex = obj.name;
+        window.location.href = "service?itemIndex=" + itemIndex;
+    }
+</script>
 </body>
 </html>

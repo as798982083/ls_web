@@ -1,5 +1,6 @@
 package com.zcj.ls.ls_web.utils;
 
+import com.zcj.ls.ls_web.config.StringConfig;
 import com.zcj.ls.ls_web.config.WebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
@@ -15,9 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FileUtil {
-
-    @Autowired
-    public static WebConfig webConfig;
+//    @Autowired
+//    public static WebConfig webConfig;
     /**
      * 保存文件，并返回文件的相对路径。
      * @param file 临时文件名称
@@ -35,7 +35,7 @@ public class FileUtil {
         try {
             //保存文件的绝对路径
             //获取服务器的绝对路径
-            String path = "D:\\ls_web\\upload";
+            String path = StringConfig.uploadPath;
             File folder = new File(path);
             //获取项目路径
 //            String path = ResourceUtils.getURL("src\\main\\resources\\static\\upload").getPath();

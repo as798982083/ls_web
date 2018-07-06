@@ -7,7 +7,7 @@ server:
 
 #自定义的属性，指定了一个路径，注意要以/结尾
 #D:/ls_web/upload/目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
-web:
+system-params:
   upload-path: D:/ls_web/upload/
 
 #数据库连接
@@ -35,7 +35,7 @@ spring:
     #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
   resources:
-    static-locations: classpath:/static/,file:${web.upload-path}
+    static-locations: classpath:/static/,file:${system-params.upload-path}
 
 #
 #
