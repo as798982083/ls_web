@@ -1,22 +1,22 @@
 package com.zcj.ls.ls_web;
 
-import com.zcj.ls.ls_web.config.StringConfig;
-import com.zcj.ls.ls_web.dao.NewsRepository;
-import com.zcj.ls.ls_web.entity.News;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mytest {
 
+    /**
+     * 正则表达式测试
+     */
     @Test
     public void testRegExp(){
         String content = "<p style=\"border:0px;margin-top:0.63em;margin-bottom:1.8em;padding:0px;counter-reset:list-1" +
@@ -59,6 +59,10 @@ public class Mytest {
         return htmlStr.trim(); //返回文本字符串
     }
 
+    /**
+     * 时间处理测试
+     * @throws ParseException
+     */
     @Test
     public void testDate() throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -68,13 +72,16 @@ public class Mytest {
         System.out.println(nowString);
     }
 
-    @Autowired
-    NewsRepository newsRepository;
-
+    /**
+     * Json方法测试
+     */
     @Test
     public void testRepository(){
-//        List<News> newsList = newsRepository.findByIsPublishAndDelFlag();
-//        System.out.println(newsList.size());
+        String str = "{\"cusId\":\"4028816b63680ec00163681559410005\",\"cusName\":\"李四\",\"cusMobile\":\"15893749273\"," +
+                "\"address\":\"江苏省南京市溧水区\",\"areaFullName\":\"江苏省南京市溧水区\",\"areaCode\":\"320110\"," +
+                "\"code\":1000,\"msg\":\"登陆成功\"}\n";
+        JSONObject jsonObject = JSONObject.fromObject(str);
+        System.out.println(jsonObject);
     }
 
 }

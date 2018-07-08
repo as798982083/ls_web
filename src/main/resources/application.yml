@@ -6,9 +6,21 @@ server:
 
 
 #自定义的属性，指定了一个路径，注意要以/结尾
-#D:/ls_web/upload/目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
 system-params:
+#  图片上传保存路径
   upload-path: D:/ls_web/upload/
+#  登录养老平台
+  yl-login: http://61.153.190.75:8081/WorkManage/interface/APP/userLogin.action
+#  获取服务大类列表
+  yl-getServiceCategory: http://61.153.190.75:8081/WorkManage/interface/APP/getServiceCategory.action
+#  获取服务项目列表
+  yl-getServiceItem: http://61.153.190.75:8081/WorkManage/interface/APP/getServiceItem.action
+#  提交订单
+  yl-commitOrder: http://61.153.190.75:8081/WorkManage/interface/APP/commitOrder.action
+#  订单查询
+  yl-queryOrders: http://61.153.190.75:8081/WorkManage/interface/APP/queryOrders.action
+#   取消订单
+  yl-cancelOrder: http://61.153.190.75:8081/WorkManage/interface/APP/cancelOrder.action
 
 #数据库连接
 spring:
@@ -34,12 +46,6 @@ spring:
   mvc:
     #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
+  #项目static文件加和file:${system-params.upload-path}目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
   resources:
     static-locations: classpath:/static/,file:${system-params.upload-path}
-
-#
-#
-#  web.upload-path=D:/temp/study13/
-#  spring.mvc.static-path-pattern=/**
-#  spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,\
-#    classpath:/static/,classpath:/public/,file:${web.upload-path}

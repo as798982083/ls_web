@@ -41,7 +41,7 @@
     	<dl class="join_a clearfix">
             <dd>
             	<a th:each="category,state:${categoryList}" th:name="${state.index}" href="javascript:void(0)" onclick="changeItems(this)">
-                    <span th:text="${category}"></span>
+                    <span th:text="${category.categoryName}"></span>
                 </a>
             </dd>
         </dl>
@@ -61,23 +61,28 @@
                 <th>描述</th>
                 <th>参考价格</th>
                 <th>计费方式</th>
-                <th>常规服务时长（小时）</th>
+                <!--<th>常规服务时长（小时）</th>-->
                 <th>预约</th>
             </tr>
             </thead>
             <!--表格内容-->
             <tbody>
             <tr th:each="item,state:${itemList}">
-                <td th:text="${item}"></td>
-                <td>一般家务，实际收费及工作内容视情况而定。</td>
-                <td style="text-align: center;">20元</td>
-                <td style="text-align: center;">小时</td>
-                <td style="text-align: center;">2</td>
+                <input type="hidden" th:value="${item.itemId}"/>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.remark}">一般家务，实际收费及工作内容视情况而定。</td>
+                <td th:text="${item.price}+'元'" style="text-align: center;">元</td>
+                <td th:switch="${item.feeKind}" style="text-align: center;">
+                    <span th:case="001">次</span>
+                    <span th:case="002">小时</span>
+                    <span th:case="003">平方</span>
+                </td>
+                <!--<td style="text-align: center;">2</td>-->
 
                 <td class="td_column_delete" id="td_column_delete_1" align="center" style="cursor:pointer;">
                     <!--<form th:action="@{/activityDelete}" method="post">-->
                         <input  type="hidden" th:value="${item}"  name="id">
-                        <button  type="submit" class="btn btn-success"> <!--改成submit即可-->
+                        <button  type="button" class="btn btn-success"> <!--改成submit即可-->
                             <!--<i class="icon-trash" style="margin-right:3px"></i>-->
                             预约
                         </button>
@@ -95,7 +100,7 @@
 <script th:inline="javascript">
     function changeItems(obj) {
         var itemIndex = obj.name;
-        window.location.href = "service?itemIndex=" + itemIndex;
+        window.location.href = "service?categoryIndex=" + itemIndex;
     }
 </script>
 </body>

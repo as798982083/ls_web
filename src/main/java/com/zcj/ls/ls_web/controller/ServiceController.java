@@ -1,5 +1,12 @@
 package com.zcj.ls.ls_web.controller;
 
+import com.zcj.ls.ls_web.config.WebConfig;
+import com.zcj.ls.ls_web.entity.User;
+import com.zcj.ls.ls_web.utils.HttpUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,67 +20,114 @@ import java.util.List;
 @Controller
 public class ServiceController {
 
+    @Autowired
+    private WebConfig webConfig;
+
     @RequestMapping("/service")
-    public String service(Model model, Integer itemIndex) {
-        if (itemIndex == null) {
-            itemIndex = 0;
+    public String service(Model model, Integer categoryIndex) {
+        if (categoryIndex == null) {
+            categoryIndex = 0;
         }
-        List categoryList = new ArrayList();
-        categoryList.add("为小服务");
-        categoryList.add("助残服务");
-        categoryList.add("社区服务");
-        categoryList.add("家庭服务");
-        categoryList.add("居家养老");
-        categoryList.add("志愿者服务");
 
-        List<List> itemList = new ArrayList();
-        List items1 = new ArrayList();
-        items1.add("四点半课堂");
-        List items2 = new ArrayList();
-        List items3 = new ArrayList();
-        List items4 = new ArrayList();
-        items4.add("鲜花配送");
-        items4.add("保洁");
-        items4.add("搬家");
-        items4.add("家电维修");
-        items4.add("清洗抽油机");
-        items4.add("钟点工");
-        items4.add("下水道疏通");
-        items4.add("月嫂");
-        items4.add("白班保姆");
-        items4.add("水果配送");
-        items4.add("住家保姆");
-        List items5 = new ArrayList();
-        items5.add("日间照料");
-        items5.add("住家照顾老人");
-        items5.add("代煎中药");
-        items5.add("代购生活用品");
-        items5.add("陪老人聊天");
-        items5.add("上门做餐（喂餐）");
-        items5.add("一般家务");
-        items5.add("上门修脚");
-        items5.add("陪同散步");
-        items5.add("康复护理");
-        items5.add("一般咨询");
-        items5.add("日间照料");
-        items5.add("法律咨询");
-        items5.add("白班照顾老人");
-        List items6 = new ArrayList();
-        items6.add("上门保洁");
-        items6.add("上门送餐");
+        JSONArray categoryList = ylGetServiceCategory();
+        String categoryId = (String) ((JSONObject) categoryList.get(categoryIndex)).get("categoryId");
+        JSONArray itemList = ylGetServiceItem(categoryId);
 
-        itemList.add(items1);
-        itemList.add(items2);
-        itemList.add(items3);
-        itemList.add(items4);
-        itemList.add(items5);
-        itemList.add(items6);
+//        List categoryList = new ArrayList();
+//        categoryList.add("为小服务");
+//        categoryList.add("助残服务");
+//        categoryList.add("社区服务");
+//        categoryList.add("家庭服务");
+//        categoryList.add("居家养老");
+//        categoryList.add("志愿者服务");
 
+//        List<List> itemList = new ArrayList();
+//        List items1 = new ArrayList();
+//        items1.add("四点半课堂");
+//        List items2 = new ArrayList();
+//        List items3 = new ArrayList();
+//        List items4 = new ArrayList();
+//        items4.add("鲜花配送");
+//        items4.add("保洁");
+//        items4.add("搬家");
+//        items4.add("家电维修");
+//        items4.add("清洗抽油机");
+//        items4.add("钟点工");
+//        items4.add("下水道疏通");
+//        items4.add("月嫂");
+//        items4.add("白班保姆");
+//        items4.add("水果配送");
+//        items4.add("住家保姆");
+//        List items5 = new ArrayList();
+//        items5.add("日间照料");
+//        items5.add("住家照顾老人");
+//        items5.add("代煎中药");
+//        items5.add("代购生活用品");
+//        items5.add("陪老人聊天");
+//        items5.add("上门做餐（喂餐）");
+//        items5.add("一般家务");
+//        items5.add("上门修脚");
+//        items5.add("陪同散步");
+//        items5.add("康复护理");
+//        items5.add("一般咨询");
+//        items5.add("日间照料");
+//        items5.add("法律咨询");
+//        items5.add("白班照顾老人");
+//        List items6 = new ArrayList();
+//        items6.add("上门保洁");
+//        items6.add("上门送餐");
+//
+//        itemList.add(items1);
+//        itemList.add(items2);
+//        itemList.add(items3);
+//        itemList.add(items4);
+//        itemList.add(items5);
+//        itemList.add(items6);
 
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("itemList", itemList.get(itemIndex));
+        model.addAttribute("itemList", itemList);
         model.addAttribute("page","service");
         return "front/service";
+    }
+
+    /**
+     * 用本网站的账号去登录养老平台
+     * @param user 本网站账号
+     * @return  返回登录信息
+     */
+    public JSONObject ylLogin(User user){
+        //封装本网站账号信息
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("cusId", "");
+            jsonObject.put("cusName", "李四");
+            jsonObject.put("cusMobile", "15893749273");
+            jsonObject.put("address", "江苏省南京市溧水区");
+        } catch (JSONException e) {
+            System.out.println("Json对象封装失败！！！");
+            e.printStackTrace();
+        }
+        //获取养老平台登录信息
+        JSONObject result = HttpUtil.getData(webConfig.getYlLogin(), jsonObject);
+        return result;
+    }
+
+    public JSONArray ylGetServiceCategory(){
+        //封装
+        JSONObject jsonObject = new JSONObject();
+        JSONObject result = HttpUtil.getData(webConfig.getYlGetServiceCategory(), jsonObject);
+        JSONArray categoryList = (JSONArray) result.get("categoryList");
+        return categoryList;
+    }
+
+    public JSONArray ylGetServiceItem(String categoryId){
+        //封装
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("categoryId", categoryId);
+        JSONObject result = HttpUtil.getData(webConfig.getYlGetServiceItem(), jsonObject);
+        JSONArray serviceItemList = (JSONArray) result.get("itemList");
+//        String serviceItemId = (String) ((JSONObject) serviceItemList.get(3)).get("itemId");
+        return serviceItemList;
     }
 
 //    //JPA实体
