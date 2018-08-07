@@ -24,7 +24,7 @@ public class LsWebApplicationTests {
 	 */
 	@Test
 	public void testConfig(){
-		Assert.assertEquals("D:/ls_web/upload/", webConfig.getUploadPath());
+		Assert.assertEquals("C:/ls_web/upload/", webConfig.getUploadPath());
 		System.out.println(webConfig.getUploadPath());
 	}
 

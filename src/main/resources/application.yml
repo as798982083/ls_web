@@ -8,7 +8,7 @@ server:
 #自定义的属性，指定了一个路径，注意要以/结尾
 system-params:
 #  图片上传保存路径
-  upload-path: D:/ls_web/upload/
+  upload-path: C:/ls_web/upload/
 #  登录养老平台
   yl-login: http://61.153.190.75:8081/WorkManage/interface/APP/userLogin.action
 #  获取服务大类列表
