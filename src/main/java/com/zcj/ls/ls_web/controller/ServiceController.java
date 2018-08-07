@@ -11,9 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 核心业务
  */
@@ -23,6 +20,12 @@ public class ServiceController {
     @Autowired
     private WebConfig webConfig;
 
+    /**
+     * 获取服务大类和项目列表
+     * @param model
+     * @param categoryIndex 大类序号
+     * @return  大类和项目列表
+     */
     @RequestMapping("/service")
     public String service(Model model, Integer categoryIndex) {
         if (categoryIndex == null) {
@@ -32,57 +35,6 @@ public class ServiceController {
         JSONArray categoryList = ylGetServiceCategory();
         String categoryId = (String) ((JSONObject) categoryList.get(categoryIndex)).get("categoryId");
         JSONArray itemList = ylGetServiceItem(categoryId);
-
-//        List categoryList = new ArrayList();
-//        categoryList.add("为小服务");
-//        categoryList.add("助残服务");
-//        categoryList.add("社区服务");
-//        categoryList.add("家庭服务");
-//        categoryList.add("居家养老");
-//        categoryList.add("志愿者服务");
-
-//        List<List> itemList = new ArrayList();
-//        List items1 = new ArrayList();
-//        items1.add("四点半课堂");
-//        List items2 = new ArrayList();
-//        List items3 = new ArrayList();
-//        List items4 = new ArrayList();
-//        items4.add("鲜花配送");
-//        items4.add("保洁");
-//        items4.add("搬家");
-//        items4.add("家电维修");
-//        items4.add("清洗抽油机");
-//        items4.add("钟点工");
-//        items4.add("下水道疏通");
-//        items4.add("月嫂");
-//        items4.add("白班保姆");
-//        items4.add("水果配送");
-//        items4.add("住家保姆");
-//        List items5 = new ArrayList();
-//        items5.add("日间照料");
-//        items5.add("住家照顾老人");
-//        items5.add("代煎中药");
-//        items5.add("代购生活用品");
-//        items5.add("陪老人聊天");
-//        items5.add("上门做餐（喂餐）");
-//        items5.add("一般家务");
-//        items5.add("上门修脚");
-//        items5.add("陪同散步");
-//        items5.add("康复护理");
-//        items5.add("一般咨询");
-//        items5.add("日间照料");
-//        items5.add("法律咨询");
-//        items5.add("白班照顾老人");
-//        List items6 = new ArrayList();
-//        items6.add("上门保洁");
-//        items6.add("上门送餐");
-//
-//        itemList.add(items1);
-//        itemList.add(items2);
-//        itemList.add(items3);
-//        itemList.add(items4);
-//        itemList.add(items5);
-//        itemList.add(items6);
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("itemList", itemList);

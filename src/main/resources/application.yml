@@ -42,7 +42,7 @@ spring:
         ddl-auto: update
   #页面缓存
   thymeleaf:
-    cache: false
+    cache: true
   mvc:
     #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
