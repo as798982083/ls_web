@@ -46,6 +46,6 @@ spring:
   mvc:
     #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
-  #项目static文件加和file:${system-params.upload-path}目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
+  #项目static文件夹和file:${system-params.upload-path}目录下的文件可以直接通过"http://localhost:8080/2.JPEG"的形式访问
   resources:
     static-locations: classpath:/static/,file:${system-params.upload-path}

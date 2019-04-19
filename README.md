@@ -4,6 +4,8 @@
 **数据库**：[mysql 5.5](https://pan.baidu.com/s/1vrWrR2iKoq80yJamQx7YeQ)   
 **jdk**：[java version "1.8.0_91"](https://pan.baidu.com/s/1TtBNUSVVQSrenyg_9kRHsQ)  
 **spring boot**: 2.0.3.RELEASE  
+**数据库连接**：[mysql-connector-java-5.1.12-bin.jar 提取码：2tjp ](https://pan.baidu.com/s/1bAOEWXjewwJa0TUP0bAYag)   
+由于该jar文件在maven库中不可用，因此要在本地添加依赖。
 
 
 **spring boot配置 iframe同源可访问**:  
