@@ -28,3 +28,6 @@
  **路由命名**：驼峰命名法。eg：新闻列表页面`newsShow.html`，则跳转到新闻列表的路由为`@RequestMapping("/newsShow")`
  
 jar包发布：ieda-mavenProject-lifecycle-install，目录的target下会生成.jar的项目文件。
+
+
+## IDEA网站项目打jar包发布
