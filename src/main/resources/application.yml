@@ -26,6 +26,7 @@ system-params:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ls_web?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    #    url: jdbc:mysql://180.101.143.121:3306/ls_web?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
