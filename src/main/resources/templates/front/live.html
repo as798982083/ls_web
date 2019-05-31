@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <title>EZOPEN播放协议</title>
+  <script src="front/js/ezuikit.js"></script>
+  <script src="front/js/live/jquery.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #url {
+      width: 100%;
+    }
+
+    .btn-container {
+      margin: 10px;
+    }
+
+    #myPlayer {
+      max-width: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+    <!-- ezopen://open.ys7.com/f01018a141094b7fa138b9d0b856507b[.hd].live.[rtmp|hls|ws|flv|m3u8] http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd.m3u8-->
+  <textarea id="url" placeholder="这里输入直播地址" style="display: none;">
+    http://hls01open.ys7.com/openlive/01dfe4425c5649e89598179363d5f629.m3u8
+  </textarea>
+  <div class="btn-container">
+    <button id="init">初始化播放</button>
+    <button id="stop">结束</button>
+  </div>
+
+  <video 
+    id="myPlayer"
+    autoplay
+    src=""
+    controls
+    playsInline 
+    webkit-playsinline
+  >
+  </video>
+    <br>
+    <a href="#" onclick="openlive()">新窗口</a>
+
+  <script>
+
+    function openlive(){
+        window.open ("index","","首页","width=632,height=388,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes");
+    }
+
+    $('#init').click(function () {
+      var url = $('#url').val().trim();
+      $('#myPlayer').attr("src", url);
+      var player = new EZUIKit.EZUIPlayer('myPlayer');
+      // 日志
+      player.on('log', log);
+
+     /* function log(str) {
+        var div = document.createElement('DIV');
+        div.innerHTML = (new Date()).Format('yyyy-MM-dd hh:mm:ss.S') + JSON.stringify(str);
+        document.body.appendChild(div);
+      }*/
+
+      $("#stop").click(function () {
+        player.stop();
+      })
+    });
+
+    $("#init").click();
+  </script>
+</body>
+
+</html>
