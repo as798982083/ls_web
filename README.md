@@ -31,3 +31,5 @@ jar包发布：ieda-mavenProject-lifecycle-install，目录的target下会生成
 
 
 ## IDEA网站项目打jar包发布
+
+[在IDEA中将SpringBoot项目打包成jar包并发布](https://blog.csdn.net/zhizhuodewo6/article/details/82178286)

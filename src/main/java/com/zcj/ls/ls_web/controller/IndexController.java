@@ -26,7 +26,7 @@ public class IndexController {
     }
 
     //前台显示
-    @RequestMapping({"/index","/"})     //映射多个路径
+    @RequestMapping({"/","/index","/login"})     //映射多个路径
     public String index(Model model) {
         List<News> newsList = newsList();
         model.addAttribute("newsList", newsList);
