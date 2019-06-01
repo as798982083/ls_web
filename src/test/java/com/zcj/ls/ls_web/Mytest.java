@@ -1,8 +1,14 @@
 package com.zcj.ls.ls_web;
 
-import net.sf.json.JSONArray;
+import com.zcj.ls.ls_web.config.WebConfig;
+import com.zcj.ls.ls_web.utils.HttpUtil;
 import net.sf.json.JSONObject;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,6 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mytest {
+
+    @Autowired
+    private WebConfig webConfig;
 
     /**
      * 正则表达式测试
@@ -82,6 +91,97 @@ public class Mytest {
                 "\"code\":1000,\"msg\":\"登陆成功\"}\n";
         JSONObject jsonObject = JSONObject.fromObject(str);
         System.out.println(jsonObject);
+    }
+
+    /**
+     * 测试二层jsonobject数据
+     */
+    @Test
+    public void testJsonArray(){
+        JSONObject jsonObject = JSONObject.fromObject("{\n" +
+                "    \"data\": {\n" +
+                "        \"accessToken\": \"at.1a3n0q7c6wbv4ighc5bqxsjpbt6nqido-6bewl9spau-19458g6-nvhj7icct\",\n" +
+                "        \"expireTime\": 1559990570006\n" +
+                "    },\n" +
+                "    \"code\": \"200\",\n" +
+                "    \"msg\": \"操作成功!\"\n" +
+                "}");
+        JSONObject jsonObject1 = JSONObject.fromObject("{\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"deviceSerial\": \"C77960127\",\n" +
+                "            \"channelNo\": 1,\n" +
+                "            \"deviceName\": \"恒宇养老服务中心\",\n" +
+                "            \"hls\": \"http://hls01open.ys7.com/openlive/01dfe4425c5649e89598179363d5f629.m3u8\",\n" +
+                "            \"hlsHd\": \"http://hls01open.ys7.com/openlive/01dfe4425c5649e89598179363d5f629.hd.m3u8\",\n" +
+                "            \"rtmp\": \"rtmp://rtmp01open.ys7.com/openlive/01dfe4425c5649e89598179363d5f629\",\n" +
+                "            \"rtmpHd\": \"rtmp://rtmp01open.ys7.com/openlive/01dfe4425c5649e89598179363d5f629.hd\",\n" +
+                "            \"flvAddress\": \"https://flvopen.ys7.com:9188/openlive/01dfe4425c5649e89598179363d5f629.flv\",\n" +
+                "            \"hdFlvAddress\": \"https://flvopen.ys7.com:9188/openlive/01dfe4425c5649e89598179363d5f629.hd.flv\",\n" +
+                "            \"status\": 1,\n" +
+                "            \"exception\": 0,\n" +
+                "            \"ret\": \"200\",\n" +
+                "            \"desc\": \"获取成功!\"\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"code\": \"200\",\n" +
+                "    \"msg\": \"操作成功!\"\n" +
+                "}");
+        System.out.println(jsonObject);
+    }
+
+    /**
+     * 获取token成功
+     */
+    @Test
+    public void testGetToken(){
+        JSONObject jsonObject = new JSONObject();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("appKey", webConfig.getCameraAppKey());
+        params.add("appSecret",webConfig.getCameraAppSecret());
+        JSONObject result = HttpUtil.postData(webConfig.getCameraGetToken(), params);
+        JSONObject data = (JSONObject) result.get("data");
+        String token = (String) data.get("accessToken");
+        System.out.println(token);
+    }
+
+    /**
+     * 添加设备成功
+     */
+    @Test
+    public void testAddDevice(){
+        String url = "https://open.ys7.com/api/lapp/device/add";
+        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        params.add("accessToken","at.1a3n0q7c6wbv4ighc5bqxsjpbt6nqido-6bewl9spau-19458g6-nvhj7icct");
+        params.add("deviceSerial", "C77960127");
+        params.add("validateCode", "TYUUDV");
+        JSONObject result = HttpUtil.postData(url, params);
+        String code = (String) result.get("code");
+        String msg = (String) result.get("msg");
+        System.out.println(code);
+        System.out.println(msg);
+//        result ： {"code":"200","msg":"操作成功!"}
+    }
+
+    @Test
+    public void deviceNameUpdate(){
+
+    }
+    @Test
+    public void deviceEncryptOff(){
+
+    }
+    @Test
+    public void liveVideoOpen(){
+
+    }
+    @Test
+    public void getLiveAddress(){
+
+    }
+    @Test
+    public void liveVideoClose(){
+
     }
 
 }

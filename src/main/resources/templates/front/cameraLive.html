@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <title>EZOPEN播放协议</title>
+  <script src="front/js/ezuikit.js"></script>
+  <script src="front/js/live/jquery.min.js"></script>
+  <style>
+    body {
+      margin: 0 auto;
+    }
+
+    #myPlayer {
+      width: 50%;
+    }
+  </style>
+</head>
+<body onunload="liveVideoClose()">
+<input type="hidden" th:value="${liveAddress}" id="liveAddress"/>
+<video
+        id="myPlayer"
+        autoplay
+        src=""
+        controls
+        playsInline
+        webkit-playsinline
+        style="margin: 0 auto"
+>
+</video>
+
+
+
+<script>
+    debugger
+    var url = $("#liveAddress").val();
+    $('#myPlayer').attr("src", url);
+    var player = new EZUIKit.EZUIPlayer('myPlayer');
+    player.on();
+
+</script>
+</body>
+
+</html>

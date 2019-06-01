@@ -1,8 +1,8 @@
 #端口
 server:
-  port: 8082
+  port: 18080
 #  servlet:
-#    context-path: /boot
+#    context-path: /camera
 
 
 #自定义的属性，指定了一个路径，注意要以/结尾
@@ -21,6 +21,26 @@ system-params:
   yl-queryOrders: http://61.153.190.75:8081/WorkManage/interface/APP/queryOrders.action
 #   取消订单
   yl-cancelOrder: http://61.153.190.75:8081/WorkManage/interface/APP/cancelOrder.action
+#   萤石appKey
+  camera-appKey: f5a87379c1eb47edb4b018c6527f157e
+#   萤石appSecret
+  camera-appSecret: 0169919196cdbbb10b888f2ee04b06f8
+#   获取萤石token
+  camera-getToken: https://open.ys7.com/api/lapp/token/get
+#   添加设备
+  camera-addDevice: https://open.ys7.com/api/lapp/device/add
+#   修改设备名
+  camera-deviceNameUpdate: https://open.ys7.com/api/lapp/device/name/update
+#   关闭视频加密
+  camera-deviceEncryptOff: https://open.ys7.com/api/lapp/device/encrypt/off
+#   开通直播功能
+  camera-liveVideoOpen: https://open.ys7.com/api/lapp/live/video/open
+#   获取直播地址
+  camera-getLiveAddress: https://open.ys7.com/api/lapp/live/address/get
+#   关闭直播功能
+  camera-liveVideoClose: https://open.ys7.com/api/lapp/live/video/close
+
+
 
 #数据库连接
 spring:

@@ -3,11 +3,9 @@ package com.zcj.ls.ls_web.utils;
 import com.zcj.ls.ls_web.config.WebConfig;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
@@ -41,6 +39,18 @@ public class HttpUtil {
         HttpEntity<String> entity = new HttpEntity<String>(body.toString(), headers);
         entity = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         String result = entity.getBody();
+        jsonObject = JSONObject.fromObject(result);
+        return jsonObject;
+    }
+
+    public static JSONObject postData(String url, MultiValueMap<String, String> params) {
+        JSONObject jsonObject;  //需要返回的json对象
+        HttpHeaders headers = new HttpHeaders();    //请求头
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);    //json格式
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+        RestTemplate restTemplate=new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        String result = response.getBody();
         jsonObject = JSONObject.fromObject(result);
         return jsonObject;
     }
