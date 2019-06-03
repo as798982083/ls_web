@@ -113,9 +113,9 @@ public class CameraController {
             camera.setDelFlag(0);
             Camera resCamera = cameraRepository.save(camera);
             if (resCamera == null) {
-                resultMessage = "添加到萤石平台成功，信息保存失败";
+                resultMessage += "添加到萤石平台成功，信息保存失败";
             } else {
-                resultMessage = "添加到萤石平台成功，信息保存成功";
+                resultMessage += "添加到萤石平台成功，信息保存成功";
             }
         }else{
             //更新设备名称
@@ -141,7 +141,6 @@ public class CameraController {
 
     //获取token
     private void getToken() {
-        JSONObject jsonObject = new JSONObject();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("appKey", webConfig.getCameraAppKey());
         params.add("appSecret",webConfig.getCameraAppSecret());
@@ -169,7 +168,14 @@ public class CameraController {
             resultMessage = "添加设备成功，可在萤石云平台查看设备";
             //添加设备成功后，关闭视频加密（否则无法直播视频）
             String url2 = webConfig.getCameraDeviceEncryptOff();
-            JSONObject result2 = HttpUtil.postData(url, params);
+            JSONObject result2 = HttpUtil.postData(url2, params);
+            String code2 = (String) result.get("code");
+            String msg2 = (String) result.get("msg");
+            if ("200".equals(code2)) {
+                resultMessage += "关闭视频加密成功!";
+            } else {
+                resultMessage += "关闭视频加密失败！code2:"+code2+"，msg2："+msg2;
+            }
             System.out.println(DateUtil.getCurrentDate()+" 添加设备到萤石平台成功后，关闭视频加密："+result2.toString());
             return 1;
         }else{
@@ -193,10 +199,10 @@ public class CameraController {
             getToken();
             return addDevice(camera);
         }else if ("200".equals(code)) {
-            resultMessage = "修改设备名称成功";
+            resultMessage += "修改设备名称成功!";
             return 1;
         }else{
-            resultMessage = "修改设备名称失败! code:"+code+"，msg："+msg;
+            resultMessage += "修改设备名称失败! code:"+code+"，msg："+msg+"!";
             return 0;
         }
     }
