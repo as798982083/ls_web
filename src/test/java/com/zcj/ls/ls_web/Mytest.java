@@ -2,6 +2,7 @@ package com.zcj.ls.ls_web;
 
 import com.zcj.ls.ls_web.config.WebConfig;
 import com.zcj.ls.ls_web.utils.HttpUtil;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -163,10 +166,57 @@ public class Mytest {
 //        result ： {"code":"200","msg":"操作成功!"}
     }
 
+    /**
+     * 获取所有设备的服务点名称，播放地址
+     */
     @Test
+    public void deviceList(){
+        String url = "https://open.ys7.com/api/lapp/live/video/list";
+        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        params.add("accessToken","at.de5gwuqw3vt5xhtd5we83jd1a40p8t58-5j219ebuou-0frvakq-6tdjlgwlc");
+        params.add("pageStart", "0");
+        params.add("pageSize", "30");
+        JSONObject result = HttpUtil.postData(url, params);
+        JSONArray data = (JSONArray) result.get("data");
+        String resultString = "";     //目标字符串
+        int servicePlaceNum = 0;  //记录服务点个数
+        int deviceNum = 0;  //记录播放地址个数
+        String forceDeviceName = "firstName"; //前一个设备名称
+        for (int i = 0;i<data.size();i++) {
+            JSONObject item = (JSONObject) data.get(i);
+            if(item.get("deviceName") != null && !item.get("deviceName").equals("")){
+                String deviceName = (String) item.get("deviceName");    //当前设备名
+                String liveAddress = (String) item.get("liveAddress");  //当前播放地址
+                String itemString = "";
+                if (forceDeviceName.substring(0, forceDeviceName.length() - 1)
+                        .equals(deviceName.substring(0, deviceName.length() - 1))) {
+                    //除了最后一位编号，设备名是否相同
+                    itemString = liveAddress+"\n";  //相同则只添加播放地址
+                    deviceNum++;
+                } else {
+                    //不同则添加设备名和播放地址
+                    itemString = deviceName.substring(0,deviceName.length()-1)+"\n"+liveAddress+"\n";
+                    servicePlaceNum++;
+                    deviceNum++;
+                }
+                //记录前一个设备名，用于下一次的比较
+                forceDeviceName = deviceName;
+                //拼接字符串
+                resultString += itemString;
+            }
+        }
+        resultString += "一共有"+servicePlaceNum+"家服务机构，共" + deviceNum + "台设备的播放地址";
+        //输出总的结果字符串
+        System.out.println(resultString);
+    }
+
     public void deviceNameUpdate(){
 
     }
+
+    /**
+     * 获取所有设备列表
+     */
     @Test
     public void deviceEncryptOff(){
 
