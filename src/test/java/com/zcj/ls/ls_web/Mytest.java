@@ -1,6 +1,7 @@
 package com.zcj.ls.ls_web;
 
 import com.zcj.ls.ls_web.config.WebConfig;
+import com.zcj.ls.ls_web.utils.DateUtil;
 import com.zcj.ls.ls_web.utils.HttpUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -11,6 +12,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.crypto.Data;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -205,7 +208,8 @@ public class Mytest {
                 resultString += itemString;
             }
         }
-        resultString += "一共有"+servicePlaceNum+"家服务机构，共" + deviceNum + "台设备的播放地址";
+        resultString += "一共有"+servicePlaceNum+"家服务机构，共" + deviceNum + "台设备的播放地址。\n";
+        resultString += DateUtil.getCurrentDate();
         //输出总的结果字符串
         System.out.println(resultString);
     }
