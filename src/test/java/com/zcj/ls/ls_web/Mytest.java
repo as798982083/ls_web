@@ -175,40 +175,44 @@ public class Mytest {
     @Test
     public void deviceList(){
         String url = "https://open.ys7.com/api/lapp/live/video/list";
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-        params.add("accessToken","at.de5gwuqw3vt5xhtd5we83jd1a40p8t58-5j219ebuou-0frvakq-6tdjlgwlc");
-        params.add("pageStart", "0");
-        params.add("pageSize", "30");
-        JSONObject result = HttpUtil.postData(url, params);
-        JSONArray data = (JSONArray) result.get("data");
+        JSONArray data = new JSONArray();
         String resultString = "";     //目标字符串
         int servicePlaceNum = 0;  //记录服务点个数
         int deviceNum = 0;  //记录播放地址个数
-        String forceDeviceName = "firstName"; //前一个设备名称
-        for (int i = 0;i<data.size();i++) {
-            JSONObject item = (JSONObject) data.get(i);
-            if(item.get("deviceName") != null && !item.get("deviceName").equals("")){
-                String deviceName = (String) item.get("deviceName");    //当前设备名
-                String liveAddress = (String) item.get("liveAddress");  //当前播放地址
-                String itemString = "";
-                if (forceDeviceName.substring(0, forceDeviceName.length() - 1)
-                        .equals(deviceName.substring(0, deviceName.length() - 1))) {
-                    //除了最后一位编号，设备名是否相同
-                    itemString = liveAddress+"\n";  //相同则只添加播放地址
-                    deviceNum++;
-                } else {
-                    //不同则添加设备名和播放地址
-                    itemString = deviceName.substring(0,deviceName.length()-1)+"\n"+liveAddress+"\n";
-                    servicePlaceNum++;
-                    deviceNum++;
+        int pageNum = 0;
+        do {
+            MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+            params.add("accessToken", "at.4wbogcko8hjre3qp9cp66zt198g7fxjg-3npgs43961-15xszu1-dhwxiqly4");
+            params.add("pageStart", String.valueOf(pageNum++));
+            params.add("pageSize", "30");
+            JSONObject result = HttpUtil.postData(url, params);
+            data = (JSONArray) result.get("data");
+            String forceDeviceName = "firstName"; //前一个设备名称
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject item = (JSONObject) data.get(i);
+                if (item.get("deviceName") != null && !item.get("deviceName").equals("")) {
+                    String deviceName = (String) item.get("deviceName");    //当前设备名
+                    String liveAddress = (String) item.get("liveAddress");  //当前播放地址
+                    String itemString = "";
+                    if (forceDeviceName.substring(0, forceDeviceName.length() - 1)
+                            .equals(deviceName.substring(0, deviceName.length() - 1))) {
+                        //除了最后一位编号，设备名是否相同
+                        itemString = liveAddress + "\n";  //相同则只添加播放地址
+                        deviceNum++;
+                    } else {
+                        //不同则添加设备名和播放地址
+                        itemString = deviceName + "\n" + liveAddress + "\n";
+                        servicePlaceNum++;
+                        deviceNum++;
+                    }
+                    //记录前一个设备名，用于下一次的比较
+                    forceDeviceName = deviceName;
+                    //拼接字符串
+                    resultString += itemString;
                 }
-                //记录前一个设备名，用于下一次的比较
-                forceDeviceName = deviceName;
-                //拼接字符串
-                resultString += itemString;
             }
-        }
-        resultString += "一共有"+servicePlaceNum+"家服务机构，共" + deviceNum + "台设备的播放地址。\n";
+        } while (data.size()>0);
+        resultString += "一共有" + servicePlaceNum + "家服务机构，共" + deviceNum + "台设备的播放地址。\n";
         resultString += DateUtil.getCurrentDate();
         //输出总的结果字符串
         System.out.println(resultString);
