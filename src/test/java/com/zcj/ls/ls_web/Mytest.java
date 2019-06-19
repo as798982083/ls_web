@@ -194,19 +194,25 @@ public class Mytest {
                     String deviceName = (String) item.get("deviceName");    //当前设备名
                     String liveAddress = (String) item.get("liveAddress");  //当前播放地址
                     String itemString = "";
-                    if (forceDeviceName.substring(0, forceDeviceName.length() - 1)
-                            .equals(deviceName.substring(0, deviceName.length() - 1))) {
+                    String curDeviceName = "";
+                    //处理服务点名称
+                    if(deviceName.indexOf("-")>0){
+                        curDeviceName = deviceName.substring(0, deviceName.indexOf("-"));
+                    } else{
+                        curDeviceName = deviceName;
+                    }
+                    if (forceDeviceName.equals(curDeviceName)) {
                         //除了最后一位编号，设备名是否相同
                         itemString = liveAddress + "\n";  //相同则只添加播放地址
                         deviceNum++;
                     } else {
                         //不同则添加设备名和播放地址
-                        itemString = deviceName + "\n" + liveAddress + "\n";
+                        itemString = curDeviceName + "\n" + liveAddress + "\n";
                         servicePlaceNum++;
                         deviceNum++;
                     }
                     //记录前一个设备名，用于下一次的比较
-                    forceDeviceName = deviceName;
+                    forceDeviceName = curDeviceName;
                     //拼接字符串
                     resultString += itemString;
                 }
