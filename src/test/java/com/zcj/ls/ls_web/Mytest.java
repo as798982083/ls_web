@@ -6,24 +6,23 @@ import com.zcj.ls.ls_web.utils.HttpUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import javax.xml.crypto.Data;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class Mytest {
 
     @Autowired
@@ -33,7 +32,7 @@ public class Mytest {
      * 正则表达式测试
      */
     @Test
-    public void testRegExp(){
+    public void testRegExp() {
         String content = "<p style=\"border:0px;margin-top:0.63em;margin-bottom:1.8em;padding:0px;counter-reset:list-1" +
                 " 0 list-2 0 list-3 0 list-4 0 list-5 0 list-6 0 list-7 0 list-8 0 list-9 0;color:#191919;font-family:" +
                 "&quot;PingFang SC&quot;, Arial, 微软雅黑, 宋体, simsun,sans-serif;font-size:16px;\">如果说阿根廷的出局" +
@@ -51,31 +50,33 @@ public class Mytest {
 
     /**
      * 去掉html标签
+     *
      * @param htmlStr
      * @return
      */
-    public static String delHTMLTag(String htmlStr){
-        String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式
+    public static String delHTMLTag(String htmlStr) {
+        String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
+        String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
+        String regEx_html = "<[^>]+>"; //定义HTML标签的正则表达式
 
-        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE);
-        Matcher m_script=p_script.matcher(htmlStr);
-        htmlStr=m_script.replaceAll(""); //过滤script标签
+        Pattern p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
+        Matcher m_script = p_script.matcher(htmlStr);
+        htmlStr = m_script.replaceAll(""); //过滤script标签
 
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);
-        Matcher m_style=p_style.matcher(htmlStr);
-        htmlStr=m_style.replaceAll(""); //过滤style标签
+        Pattern p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
+        Matcher m_style = p_style.matcher(htmlStr);
+        htmlStr = m_style.replaceAll(""); //过滤style标签
 
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);
-        Matcher m_html=p_html.matcher(htmlStr);
-        htmlStr=m_html.replaceAll(""); //过滤html标签
+        Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
+        Matcher m_html = p_html.matcher(htmlStr);
+        htmlStr = m_html.replaceAll(""); //过滤html标签
 
         return htmlStr.trim(); //返回文本字符串
     }
 
     /**
      * 时间处理测试
+     *
      * @throws ParseException
      */
     @Test
@@ -91,7 +92,7 @@ public class Mytest {
      * Json方法测试
      */
     @Test
-    public void testRepository(){
+    public void testRepository() {
         String str = "{\"cusId\":\"4028816b63680ec00163681559410005\",\"cusName\":\"李四\",\"cusMobile\":\"15893749273\"," +
                 "\"address\":\"江苏省南京市溧水区\",\"areaFullName\":\"江苏省南京市溧水区\",\"areaCode\":\"320110\"," +
                 "\"code\":1000,\"msg\":\"登陆成功\"}\n";
@@ -103,7 +104,7 @@ public class Mytest {
      * 测试二层jsonobject数据
      */
     @Test
-    public void testJsonArray(){
+    public void testJsonArray() {
         JSONObject jsonObject = JSONObject.fromObject("{\n" +
                 "    \"data\": {\n" +
                 "        \"accessToken\": \"at.1a3n0q7c6wbv4ighc5bqxsjpbt6nqido-6bewl9spau-19458g6-nvhj7icct\",\n" +
@@ -140,11 +141,11 @@ public class Mytest {
      * 获取token成功
      */
     @Test
-    public void testGetToken(){
+    public void testGetToken() {
         JSONObject jsonObject = new JSONObject();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("appKey", webConfig.getCameraAppKey());
-        params.add("appSecret",webConfig.getCameraAppSecret());
+        params.add("appSecret", webConfig.getCameraAppSecret());
         JSONObject result = HttpUtil.postData(webConfig.getCameraGetToken(), params);
         JSONObject data = (JSONObject) result.get("data");
         String token = (String) data.get("accessToken");
@@ -155,10 +156,10 @@ public class Mytest {
      * 添加设备成功
      */
     @Test
-    public void testAddDevice(){
+    public void testAddDevice() {
         String url = "https://open.ys7.com/api/lapp/device/add";
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-        params.add("accessToken","at.1a3n0q7c6wbv4ighc5bqxsjpbt6nqido-6bewl9spau-19458g6-nvhj7icct");
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("accessToken", "at.1a3n0q7c6wbv4ighc5bqxsjpbt6nqido-6bewl9spau-19458g6-nvhj7icct");
         params.add("deviceSerial", "C77960127");
         params.add("validateCode", "TYUUDV");
         JSONObject result = HttpUtil.postData(url, params);
@@ -173,7 +174,7 @@ public class Mytest {
      * 获取所有设备的服务点名称，播放地址
      */
     @Test
-    public void deviceList(){
+    public void deviceList() {
         String url = "https://open.ys7.com/api/lapp/live/video/list";
         JSONArray data = new JSONArray();
         String resultString = "";     //目标字符串
@@ -181,8 +182,8 @@ public class Mytest {
         int deviceNum = 0;  //记录播放地址个数
         int pageNum = 0;
         do {
-            MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-            params.add("accessToken", "at.4wbogcko8hjre3qp9cp66zt198g7fxjg-3npgs43961-15xszu1-dhwxiqly4");
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("accessToken", "at.bl1g71k82y9n0k8h52srepqdb1k85qq4-22zqtw4vxa-1y5u3cb-kzwchoghh");
             params.add("pageStart", String.valueOf(pageNum++));
             params.add("pageSize", "30");
             JSONObject result = HttpUtil.postData(url, params);
@@ -196,9 +197,9 @@ public class Mytest {
                     String itemString = "";
                     String curDeviceName = "";
                     //处理服务点名称
-                    if(deviceName.indexOf("-")>0){
+                    if (deviceName.indexOf("-") > 0) {
                         curDeviceName = deviceName.substring(0, deviceName.indexOf("-"));
-                    } else{
+                    } else {
                         curDeviceName = deviceName;
                     }
                     if (forceDeviceName.equals(curDeviceName)) {
@@ -217,14 +218,14 @@ public class Mytest {
                     resultString += itemString;
                 }
             }
-        } while (data.size()>0);
+        } while (data.size() > 0);
         resultString += "一共有" + servicePlaceNum + "家服务机构，共" + deviceNum + "台设备的播放地址。\n";
         resultString += DateUtil.getCurrentDate();
         //输出总的结果字符串
         System.out.println(resultString);
     }
 
-    public void deviceNameUpdate(){
+    public void deviceNameUpdate() {
 
     }
 
@@ -232,19 +233,22 @@ public class Mytest {
      * 获取所有设备列表
      */
     @Test
-    public void deviceEncryptOff(){
+    public void deviceEncryptOff() {
 
     }
+
     @Test
-    public void liveVideoOpen(){
+    public void liveVideoOpen() {
 
     }
+
     @Test
-    public void getLiveAddress(){
+    public void getLiveAddress() {
 
     }
+
     @Test
-    public void liveVideoClose(){
+    public void liveVideoClose() {
 
     }
 
