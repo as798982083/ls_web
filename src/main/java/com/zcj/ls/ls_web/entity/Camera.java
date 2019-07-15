@@ -58,6 +58,18 @@ public class Camera {
     //逻辑删除标记
     private int delFlag;
 
+    //萤石账号AppKey
+    private String appKey;
+
+    //萤石账号Secret
+    private String secret;
+
+    //萤石账号AccessToken
+    private String accessToken;
+
+    //标清直播地址
+    private String liveAddress;
+
     public Long getId() {
         return id;
     }
@@ -176,5 +188,37 @@ public class Camera {
 
     public void setDelFlag(int delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getLiveAddress() {
+        return liveAddress;
+    }
+
+    public void setLiveAddress(String liveAddress) {
+        this.liveAddress = liveAddress;
     }
 }
