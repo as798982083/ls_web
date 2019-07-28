@@ -62,7 +62,7 @@ public class CameraController {
         //查找当前页列表
         List<Camera> cameraList = cameraRepository.findAll(ex);
         if (cameraList == null) {
-            resultMessage = "文章列表为空";
+            resultMessage = "摄像头列表为空";
             cameraList = new ArrayList<Camera>();
         }
 

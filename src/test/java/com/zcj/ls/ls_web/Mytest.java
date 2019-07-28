@@ -1,6 +1,8 @@
 package com.zcj.ls.ls_web;
 
 import com.zcj.ls.ls_web.config.WebConfig;
+import com.zcj.ls.ls_web.dao.CameraRepository;
+import com.zcj.ls.ls_web.entity.Camera;
 import com.zcj.ls.ls_web.utils.DateUtil;
 import com.zcj.ls.ls_web.utils.HttpUtil;
 import net.sf.json.JSONArray;
@@ -9,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -16,8 +20,10 @@ import org.springframework.util.MultiValueMap;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +33,9 @@ public class Mytest {
 
     @Autowired
     private WebConfig webConfig;
+
+    @Autowired
+    CameraRepository cameraRepository;
 
     /**
      * 正则表达式测试
@@ -172,6 +181,7 @@ public class Mytest {
 
     /**
      * 获取所有设备的服务点名称，播放地址
+     * 海康摄像头（添加到企业萤石账号下的设备）
      */
     @Test
     public void deviceList() {
@@ -223,6 +233,27 @@ public class Mytest {
         resultString += DateUtil.getCurrentDate();
         //输出总的结果字符串
         System.out.println(resultString);
+    }
+
+    /**
+     * 获取所有设备的服务点名称，播放地址
+     * 通过海康NVR接入的设备，直接通过播放地址添加的。
+     */
+    public void deviccList2(){
+
+        Camera cameraEx = new Camera();
+        cameraEx.setDelFlag(0);   //未删除
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching(); //构建对象
+        //创建查询实例
+        Example<Camera> ex = Example.of(cameraEx,matcher);
+        //查找当前页列表
+        List<Camera> cameraList = cameraRepository.findAll(ex);
+        if (cameraList == null) {
+            for (Camera camera : cameraList) {
+                System.out.println();
+            }
+        }
     }
 
     public void deviceNameUpdate() {
