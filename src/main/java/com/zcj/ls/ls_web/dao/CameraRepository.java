@@ -28,9 +28,11 @@ public interface CameraRepository extends JpaRepository<Camera, Long> {
     @Transactional
     @Modifying
     @Query(value = "update Camera set placeName=?2,placeLevel=?3,contectsName=?4,contectsPhone=?5,cameraSerialNum=?6," +
-            "cameraValidateCode=?7,cameraAccount=?8,cameraPassword=?9,cameraNum=?10,updateTime=?11  where id=?1 ")
+            "cameraValidateCode=?7,cameraAccount=?8,cameraPassword=?9,cameraNum=?10,updateTime=?11,liveAddress=?12 " +
+            " where id=?1 ")
     int updateCamera(Long id, String placeName, String placeLevel, String contectsName, String contectsPhone, String cameraSerialNum,
-                   String cameraValidateCode, String cameraAccount, String cameraPassword, String cameraNum, Date updateTime);
+                   String cameraValidateCode, String cameraAccount, String cameraPassword, String cameraNum, Date updateTime,
+                   String liveAddress);
 
     //更新文章逻辑删除字段
     @Transactional

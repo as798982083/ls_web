@@ -96,26 +96,43 @@ public class CameraController {
     @RequestMapping({"/cameraSave"})
     public String cameraSave(Model model, @ModelAttribute Camera camera, @Autowired HttpServletRequest request) {
         if (camera.getId() == null) {
-            //新设备，添加到萤石平台
             int resNum = addDevice(camera);
-            //添加到萤石平台失败，则退出
+            /*
+                0：添加设备失败，退出并发送失败消息。
+                1：通过海康摄像头序列号和验证码添加设备成功
+                2：通过直播地址添加设备成功
+             */
             if (resNum == 0) {
                 model.addAttribute("resultMessage", resultMessage);
-                System.out.println(DateUtil.getCurrentDate()+":"+resultMessage);
+                System.out.println(DateUtil.getCurrentDate() + ":" + resultMessage);
                 return "front/result";
-            }
-            //添加到萤石平台成功，则更新设备名称
-            resNum = deviceNameUpdate(camera);
-            if (resNum == 0){
-                System.out.println(DateUtil.getCurrentDate()+":"+resultMessage);
-            }
-            camera.setCreateTime(DateUtil.getCurrentDate());
-            camera.setDelFlag(0);
-            Camera resCamera = cameraRepository.save(camera);
-            if (resCamera == null) {
-                resultMessage += "添加到萤石平台成功，信息保存失败";
+            } else if(resNum == 1) {
+                //添加到海康摄像头到萤石平台成功，更新萤石云平台上的设备名称
+                resNum = deviceNameUpdate(camera);
+                /*
+                    0：更新失败
+                    1：更新成功
+                */
+                if (resNum == 0){
+                    System.out.println(DateUtil.getCurrentDate()+":"+resultMessage);
+                }
+                camera.setCreateTime(DateUtil.getCurrentDate());
+                camera.setDelFlag(0);
+                Camera resCamera = cameraRepository.save(camera);
+                if (resCamera == null) {
+                    resultMessage += "添加到萤石平台成功，信息保存失败";
+                } else {
+                    resultMessage += "添加到萤石平台成功，信息保存成功";
+                }
             } else {
-                resultMessage += "添加到萤石平台成功，信息保存成功";
+                camera.setCreateTime(DateUtil.getCurrentDate());
+                camera.setDelFlag(0);
+                Camera resCamera = cameraRepository.save(camera);
+                if (resCamera == null) {
+                    resultMessage += "通过直播地址添加设备失败";
+                } else {
+                    resultMessage += "通过直播地址添加设备成功";
+                }
             }
         }else{
             //更新设备名称
@@ -126,7 +143,7 @@ public class CameraController {
             }
             int res = cameraRepository.updateCamera(camera.getId(), camera.getPlaceName(), camera.getPlaceLevel(),camera.getContectsName(),
                     camera.getContectsPhone(),camera.getCameraSerialNum(),camera.getCameraValidateCode(),camera.getCameraAccount(),
-                    camera.getCameraPassword(), camera.getCameraNum(), DateUtil.getCurrentDate());
+                    camera.getCameraPassword(), camera.getCameraNum(), DateUtil.getCurrentDate(),camera.getLiveAddress());
             if (res == 0) {
                 resultMessage = "摄像头信息更新失败";
             } else {
@@ -150,36 +167,53 @@ public class CameraController {
         System.out.println(token);
     }
 
-    //添加设备
+    /*
+        两种添加设备的方式：
+        1、通过序列号和验证码添加设备
+        2、通过直播地址添加设备
+        如果（序列号、验证码）和（直播地址）都没有，则添加失败。
+     */
     private int addDevice(Camera camera) {
-        String url = webConfig.getCameraAddDevice();
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-        params.add("accessToken",token);
-        params.add("deviceSerial", camera.getCameraSerialNum());    //序列号
-        params.add("validateCode", camera.getCameraValidateCode()); //验证码
-        JSONObject result = HttpUtil.postData(url, params);
-        String code = (String) result.get("code");
-        String msg = (String) result.get("msg");
-        //accessToken异常或过期，重新获取accessToken，并再次添加设备
-        if ("10002".equals(code)) {
-            getToken();
-            return addDevice(camera);
-        }else if ("200".equals(code)) {
-            resultMessage = "添加设备成功，可在萤石云平台查看设备";
-            //添加设备成功后，关闭视频加密（否则无法直播视频）
-            String url2 = webConfig.getCameraDeviceEncryptOff();
-            JSONObject result2 = HttpUtil.postData(url2, params);
-            String code2 = (String) result.get("code");
-            String msg2 = (String) result.get("msg");
-            if ("200".equals(code2)) {
-                resultMessage += "关闭视频加密成功!";
+        //通过海康摄像头的序列号和验证码添加设备
+        if (!"".equals(camera.getCameraSerialNum()) && !"".equals(camera.getCameraValidateCode())) {
+            String url = webConfig.getCameraAddDevice();
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("accessToken", token);
+            params.add("deviceSerial", camera.getCameraSerialNum());    //序列号
+            params.add("validateCode", camera.getCameraValidateCode()); //验证码
+            JSONObject result = HttpUtil.postData(url, params);
+            String code = (String) result.get("code");
+            String msg = (String) result.get("msg");
+            //accessToken异常或过期，重新获取accessToken，并再次添加设备
+            if ("10002".equals(code)) {
+                getToken();
+                return addDevice(camera);
+            } else if ("200".equals(code)) {
+                resultMessage = "添加设备成功，可在萤石云平台查看设备";
+                //添加设备成功后，关闭视频加密（否则无法直播视频）
+                String url2 = webConfig.getCameraDeviceEncryptOff();
+                JSONObject result2 = HttpUtil.postData(url2, params);
+                String code2 = (String) result.get("code");
+                String msg2 = (String) result.get("msg");
+                if ("200".equals(code2)) {
+                    resultMessage += "关闭视频加密成功!";
+                } else {
+                    resultMessage += "关闭视频加密失败！code2:" + code2 + "，msg2：" + msg2;
+                }
+                System.out.println(DateUtil.getCurrentDate() + " 添加设备到萤石平台成功后，关闭视频加密：" + result2.toString());
+                return 1;
             } else {
-                resultMessage += "关闭视频加密失败！code2:"+code2+"，msg2："+msg2;
+                resultMessage = "添加设备失败! code:" + code + "，msg：" + msg;
+                return 0;
             }
-            System.out.println(DateUtil.getCurrentDate()+" 添加设备到萤石平台成功后，关闭视频加密："+result2.toString());
-            return 1;
-        }else{
-            resultMessage = "添加设备失败! code:"+code+"，msg："+msg;
+        }
+        //通过直播地址添加设备
+        else if (!"".equals(camera.getLiveAddress())) {
+
+            return 2;
+        }
+        //暂时没有第三种添加方法
+        else {
             return 0;
         }
     }
@@ -232,28 +266,35 @@ public class CameraController {
 
     //获取直播地址
     private int getLiveAddress(Camera camera) {
-        String url = webConfig.getCameraGetLiveAddress();
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
-        params.add("accessToken",token);
-        params.add("source", camera.getCameraSerialNum()+":1");    //序列号:通道,序列号:通道
-        JSONObject result = HttpUtil.postData(url, params);
-        String code = (String) result.get("code");
-        String msg = (String) result.get("msg");
-        //accessToken异常或过期，重新获取accessToken，并再次开通直播功能
-        if ("10002".equals(code)) {
-            getToken();
-            return addDevice(camera);
-        }else if ("200".equals(code)) {
-            resultMessage = "获取直播地址成功";
-            //提取直播地址
-            JSONArray data = (JSONArray) result.get("data");
-            JSONObject liveData = (JSONObject) data.get(0);
-            liveAddress = (String) liveData.get("hls"); //直播地址
+        //如果保存了直播地址，则直接
+        if ((camera.getLiveAddress()!= null && !"".equals(camera.getLiveAddress()))){
+            liveAddress = camera.getLiveAddress();
             return 1;
         }else{
-            resultMessage = "获取直播地址失败! code:"+code+"，msg："+msg;
-            return 0;
+            String url = webConfig.getCameraGetLiveAddress();
+            MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+            params.add("accessToken",token);
+            params.add("source", camera.getCameraSerialNum()+":1");    //序列号:通道,序列号:通道
+            JSONObject result = HttpUtil.postData(url, params);
+            String code = (String) result.get("code");
+            String msg = (String) result.get("msg");
+            //accessToken异常或过期，重新获取accessToken，并再次开通直播功能
+            if ("10002".equals(code)) {
+                getToken();
+                return addDevice(camera);
+            }else if ("200".equals(code)) {
+                resultMessage = "获取直播地址成功";
+                //提取直播地址
+                JSONArray data = (JSONArray) result.get("data");
+                JSONObject liveData = (JSONObject) data.get(0);
+                liveAddress = (String) liveData.get("hls"); //直播地址
+                return 1;
+            }else{
+                resultMessage = "获取直播地址失败! code:"+code+"，msg："+msg;
+                return 0;
+            }
         }
+
     }
 
     /**
