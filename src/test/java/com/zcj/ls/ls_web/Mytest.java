@@ -193,7 +193,7 @@ public class Mytest {
         int pageNum = 0;
         do {
             MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-            params.add("accessToken", "at.bl1g71k82y9n0k8h52srepqdb1k85qq4-22zqtw4vxa-1y5u3cb-kzwchoghh");
+            params.add("accessToken", "at.528rsii0b498sqk18uxw6i1112glnr7w-5fihp0wvno-0md6w36-be3p9fbjw");
             params.add("pageStart", String.valueOf(pageNum++));
             params.add("pageSize", "30");
             JSONObject result = HttpUtil.postData(url, params);
@@ -239,8 +239,8 @@ public class Mytest {
      * 获取所有设备的服务点名称，播放地址
      * 通过海康NVR接入的设备，直接通过播放地址添加的。
      */
+    @Test
     public void deviccList2(){
-
         Camera cameraEx = new Camera();
         cameraEx.setDelFlag(0);   //未删除
         //创建匹配器，即如何使用查询条件
@@ -251,7 +251,8 @@ public class Mytest {
         List<Camera> cameraList = cameraRepository.findAll(ex);
         if (cameraList == null) {
             for (Camera camera : cameraList) {
-                System.out.println();
+                if (camera.getLiveAddress() != null || !"".equals(camera.getLiveAddress()))
+                    System.out.println(camera.getPlaceName()+" : " + camera.getLiveAddress());
             }
         }
     }
