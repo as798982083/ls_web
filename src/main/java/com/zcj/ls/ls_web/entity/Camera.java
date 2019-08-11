@@ -10,7 +10,7 @@ import java.util.Date;
 public class Camera {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //创建时间
@@ -69,6 +69,8 @@ public class Camera {
 
     //标清直播地址
     private String liveAddress;
+
+    private String cameraType;
 
     public Long getId() {
         return id;
@@ -220,5 +222,13 @@ public class Camera {
 
     public void setLiveAddress(String liveAddress) {
         this.liveAddress = liveAddress;
+    }
+
+    public String getCameraType() {
+        return cameraType;
+    }
+
+    public void setCameraType(String cameraType) {
+        this.cameraType = cameraType;
     }
 }

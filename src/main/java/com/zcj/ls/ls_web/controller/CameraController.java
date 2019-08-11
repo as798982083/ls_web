@@ -52,11 +52,15 @@ public class CameraController {
      * @return
      */
     @RequestMapping({"/cameraList","/emsys/equipment/camera/camera.do"})     //映射多个路径
-    public String cameraList(Model model, String placeName, String action, String parentIframeId) {
+    public String cameraList(Model model,String type, String placeName, String action, String parentIframeId) {
+        type = (type== null)? "community":type;   //为空时默认为社区视频列表
+        //实体对象（查询条件值）
         Camera cameraEx = new Camera();
-        cameraEx.setDelFlag(0);   //未删除
-        //创建匹配器，即如何使用查询条件
-        ExampleMatcher matcher = ExampleMatcher.matching(); //构建对象
+        cameraEx.setCameraType(type);   //指定type
+        cameraEx.setDelFlag(0);   //未删除的
+        //创建匹配器（查询方式，即如何使用查询条件）
+        ExampleMatcher matcher = ExampleMatcher.matching()  //构建对象
+                .withMatcher("cameraType", ExampleMatcher.GenericPropertyMatchers.contains());  //cameraType字段模糊查询
         //创建查询实例
         Example<Camera> ex = Example.of(cameraEx,matcher);
         //查找当前页列表
@@ -67,6 +71,7 @@ public class CameraController {
         }
 
         model.addAttribute("cameraList", cameraList);
+        model.addAttribute("type", type);   //社区：community   居家：home    机构：nursingHome
         model.addAttribute("resultMessage", resultMessage);
         return "front/cameraList";
     }
