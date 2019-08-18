@@ -148,7 +148,7 @@ public class CameraController {
             }
             int res = cameraRepository.updateCamera(camera.getId(), camera.getPlaceName(), camera.getPlaceLevel(),camera.getContectsName(),
                     camera.getContectsPhone(),camera.getCameraSerialNum(),camera.getCameraValidateCode(),camera.getCameraAccount(),
-                    camera.getCameraPassword(), camera.getCameraNum(), DateUtil.getCurrentDate(),camera.getLiveAddress());
+                    camera.getCameraPassword(), camera.getCameraNum(), DateUtil.getCurrentDate(),camera.getLiveAddress(),camera.getCameraType());
             if (res == 0) {
                 resultMessage = "摄像头信息更新失败";
             } else {

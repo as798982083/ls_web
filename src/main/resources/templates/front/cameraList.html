@@ -47,6 +47,7 @@
             </ul>
             <div class="space_hx" style="height: auto;">
                 <button onclick="cameraAdd()" class="btn btn-success" style="margin: 5px">添加</button>
+                <form th:action="@{/cameraAdd}" th:id="'cameraAdd'" style="display: none" method="post">  隐藏表单  </form>
             </div>
             <table id="tbRecord">
                 <!--表格标题-->
@@ -98,7 +99,9 @@
     <script th:inline="javascript">
 
         function cameraAdd(){
-            window.open ("cameraAdd","","首页","width=100%,height=100%,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes");
+            debugger
+            // window.open ("cameraAdd","","首页","width=100%,height=100%,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes");
+            $("#cameraAdd").submit();
         }
 
         function cameraLive(e){

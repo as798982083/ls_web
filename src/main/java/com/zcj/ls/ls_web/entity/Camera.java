@@ -70,6 +70,7 @@ public class Camera {
     //标清直播地址
     private String liveAddress;
 
+    //视频类型：社区：community   居家：home    机构：nursingHome
     private String cameraType;
 
     public Long getId() {

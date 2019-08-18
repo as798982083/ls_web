@@ -36,6 +36,16 @@
                                 <legend></legend>
                                 <div class="control-group">
                                     <!-- Text input-->
+
+                                    <label class="control-label">视频类型*</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" data-val="true" id="cameraType" name="cameraType" placeholder="视频类型不能为空" autocomplete="Off">
+                                            <option value ="community">社区</option>
+                                            <option value ="home">居家</option>
+                                            <option value="nursingHome">机构</option>
+                                        </select>
+                                    </div>
+
                                     <label class="control-label">服务点名称*</label>
                                     <div class="controls">
                                         <input id="placeName" name="placeName" th:value="${camera.placeName}" class="input-xlarge" data-val="true" data-val-required="服务点名称不能为空" placeholder="服务点名称" type="text" autocomplete="Off">
